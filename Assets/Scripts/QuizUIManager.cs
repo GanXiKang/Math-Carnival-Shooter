@@ -5,20 +5,20 @@ using TMPro;
 
 public class QuizUIManager : MonoBehaviour
 {
-	// Preferred TMP references
+	// 優先使用 TMP 文字元件
 	[SerializeField] private TMP_Text questionTextTMP;
 	[SerializeField] private TMP_Text resultTextTMP;
-	// Fallback to built-in UI Text (in case TMP isn't used/available)
+	// 備用：使用內建 UI Text（若未使用或無法使用 TMP）
 	[SerializeField] private Text questionTextUI;
 	[SerializeField] private Text resultTextUI;
 
-	// Answer buttons (size 4)
+	// 答案按鈕（共 4 個）
 	[SerializeField] private Button[] optionButtons;
 
-	// Difficulty level key used by QuestionGenerator (e.g., "Elementary", "JuniorHigh", ...)
+	// 難度等級字串（傳入 QuestionGenerator，例如 "Elementary"、"JuniorHigh"...）
 	[SerializeField] private string level = "Elementary";
 
-	// Delay between answer selection and next question
+	// 作答後切換到下一題的延遲時間
 	[SerializeField] private float nextQuestionDelaySeconds = 1.5f;
 
 	private MathQuestion currentQuestion;
@@ -26,7 +26,7 @@ public class QuizUIManager : MonoBehaviour
 
 	void Awake()
 	{
-		// Optional: prefer portrait orientation on mobile
+		// 選用：在行動裝置上偏好直向
 		Screen.orientation = ScreenOrientation.Portrait;
 	}
 
@@ -35,7 +35,7 @@ public class QuizUIManager : MonoBehaviour
 		GenerateAndDisplayQuestion();
 	}
 
-	// Generates a new question and updates UI
+	// 產生新題目並更新介面
 	void GenerateAndDisplayQuestion()
 	{
 		isLocked = false;
@@ -47,12 +47,12 @@ public class QuizUIManager : MonoBehaviour
 
 		for (int i = 0; i < optionButtons.Length; i++)
 		{
-			int index = i; // capture for closure
+			int index = i; // 捕捉閉包用
 			var btn = optionButtons[i];
 			if (btn == null) continue;
 
 			btn.onClick.RemoveAllListeners();
-			// Set label text on either TMP or UI.Text if present
+			// 將選項文字設到 TMP 或 UI.Text（若存在）
 			TMP_Text tmpLabel = btn.GetComponentInChildren<TMP_Text>(true);
 			Text uiLabel = btn.GetComponentInChildren<Text>(true);
 			string optionText = (currentQuestion.options != null && currentQuestion.options.Length > index)
@@ -74,7 +74,7 @@ public class QuizUIManager : MonoBehaviour
 		bool correct = chosen == currentQuestion.correctAnswer;
 		SetText(resultTextTMP, resultTextUI, correct ? "✅ 答對了！" : "❌ 答錯了！");
 
-		// Disable buttons until next question
+		// 題目切換前先停用按鈕
 		SetButtonsInteractable(false);
 		StartCoroutine(LoadNextQuestionAfterDelay(nextQuestionDelaySeconds));
 	}
@@ -101,7 +101,7 @@ public class QuizUIManager : MonoBehaviour
 		}
 	}
 
-	// Utility: Set text on TMP if available, otherwise on UI.Text
+	// 工具方法：優先設定 TMP，否則設定 UI.Text
 	static void SetText(TMP_Text tmp, Text ui, string value)
 	{
 		if (tmp != null) { tmp.text = value; return; }
