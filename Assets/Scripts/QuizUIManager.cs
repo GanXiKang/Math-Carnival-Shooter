@@ -72,7 +72,7 @@ public class QuizUIManager : MonoBehaviour
 
 		int chosen = SafeGetOption(optionIndex);
 		bool correct = chosen == currentQuestion.correctAnswer;
-		SetText(resultTextTMP, resultTextUI, correct ? "✅ Correct!" : "❌ Wrong!");
+		SetText(resultTextTMP, resultTextUI, correct ? "✅ 答對了！" : "❌ 答錯了！");
 
 		// Disable buttons until next question
 		SetButtonsInteractable(false);
