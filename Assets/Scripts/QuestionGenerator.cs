@@ -61,7 +61,7 @@ public static class QuestionGenerator
 				a = answer * b;
 				break;
 		}
-		string q = $"{a} {symbol} {b} = ?";
+		string q = $"{a} {symbol} {b} = ？";
 		return BuildQuestion(q, answer, "Elementary");
 	}
 
@@ -75,21 +75,21 @@ public static class QuestionGenerator
 		int d = UnityEngine.Random.Range(1, 11);
 		string q;
 		int answer;
-		switch (pattern)
+			switch (pattern)
 		{
 			case 0:
 				// (a + b) * c - d
-				q = $"({a} + {b}) × {c} - {d} = ?";
+				q = $"({a} + {b}) × {c} - {d} = ？";
 				answer = (a + b) * c - d;
 				break;
 			case 1:
 				// a + (b * c) - d
-				q = $"{a} + ({b} × {c}) - {d} = ?";
+				q = $"{a} + ({b} × {c}) - {d} = ？";
 				answer = a + (b * c) - d;
 				break;
 			default:
 				// (a - b) + (c × d)
-				q = $"({a} - {b}) + ({c} × {d}) = ?";
+				q = $"({a} - {b}) + ({c} × {d}) = ？";
 				answer = (a - b) + (c * d);
 				break;
 		}
@@ -107,7 +107,7 @@ public static class QuestionGenerator
 			int baseVal = UnityEngine.Random.Range(2, 8);
 			int exp = UnityEngine.Random.Range(2, 4);
 			answer = (int)Mathf.Pow(baseVal, exp);
-			q = $"{baseVal}^{exp} = ?";
+			q = $"{baseVal}^{exp} = ？";
 		}
 		else if (choice == 1)
 		{
@@ -115,7 +115,7 @@ public static class QuestionGenerator
 			int m = UnityEngine.Random.Range(2, 11);
 			int n = UnityEngine.Random.Range(0, 101);
 			answer = n % m;
-			q = $"{n} mod {m} = ?";
+			q = $"{n} 取模 {m} = ？";
 		}
 		else
 		{
@@ -134,7 +134,7 @@ public static class QuestionGenerator
 			int factor = UnityEngine.Random.Range(1, 5);
 			left = factor * right; // ensures integer result = factor
 			answer = factor;
-			q = $"({a}/{b}) ÷ ({c}/{d}) = ?";
+			q = $"({a}/{b}) ÷ ({c}/{d}) = ？";
 		}
 		return BuildQuestion(q, answer, "HighSchool");
 	}
@@ -146,7 +146,7 @@ public static class QuestionGenerator
 		int x = UnityEngine.Random.Range(-10, 11);
 		int q = UnityEngine.Random.Range(-20, 21);
 		int r = p * x + q;
-		string text = $"Solve for x: {p}x + {q} = {r}";
+		string text = $"求解 x：{p}x + {q} = {r}";
 		int answer = x;
 		return BuildQuestion(text, answer, "University");
 	}
@@ -156,11 +156,11 @@ public static class QuestionGenerator
 		// Riddle pool with numeric answers
 		var riddles = new List<(string, int)>
 		{
-			("How many degrees in the sum of interior angles of a triangle?", 180),
-			("What is the smallest prime number?", 2),
-			("In binary, what is 1 + 1?", 2),
-			("How many distinct permutations of AB are there?", 2),
-			("If f(n)=n(n+1)/2, what is f(4)?", 10)
+			("三角形內角和是多少度？", 180),
+			("最小的質數是？", 2),
+			("二進位中，1 + 1 等於多少？", 2),
+			("字母 AB 的不同排列有幾種？", 2),
+			("若 f(n)=n(n+1)/2，則 f(4) 等於多少？", 10)
 		};
 		var pick = riddles[UnityEngine.Random.Range(0, riddles.Count)];
 		return BuildQuestion(pick.Item1, pick.Item2, "PhD");
