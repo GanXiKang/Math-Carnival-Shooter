@@ -1769,8 +1769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b279b9c1a98d148a0695d403343ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionTextTMP: {fileID: 0}
-  resultTextTMP: {fileID: 0}
+  questionTextTMP: {fileID: 533976477}
+  resultTextTMP: {fileID: 1640997067}
   questionTextUI: {fileID: 0}
   resultTextUI: {fileID: 0}
   optionButtons:
