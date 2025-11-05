@@ -1,17 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-#if TMP_PRESENT
 using TMPro;
-#endif
 
 public class QuizUIManager : MonoBehaviour
 {
 	// Preferred TMP references
-#if TMP_PRESENT
 	[SerializeField] private TMP_Text questionTextTMP;
 	[SerializeField] private TMP_Text resultTextTMP;
-#endif
 	// Fallback to built-in UI Text (in case TMP isn't used/available)
 	[SerializeField] private Text questionTextUI;
 	[SerializeField] private Text resultTextUI;
@@ -56,13 +52,13 @@ public class QuizUIManager : MonoBehaviour
 			if (btn == null) continue;
 
 			btn.onClick.RemoveAllListeners();
-			var label = GetButtonLabel(btn);
-			if (label != null)
-			{
-				label.text = currentQuestion.options != null && currentQuestion.options.Length > index
-					? currentQuestion.options[index].ToString()
-					: "?";
-			}
+			// Set label text on either TMP or UI.Text if present
+			TMP_Text tmpLabel = btn.GetComponentInChildren<TMP_Text>(true);
+			Text uiLabel = btn.GetComponentInChildren<Text>(true);
+			string optionText = (currentQuestion.options != null && currentQuestion.options.Length > index)
+				? currentQuestion.options[index].ToString()
+				: "?";
+			SetText(tmpLabel, uiLabel, optionText);
 
 			btn.interactable = true;
 			btn.onClick.AddListener(() => OnOptionSelected(index));
@@ -106,36 +102,12 @@ public class QuizUIManager : MonoBehaviour
 	}
 
 	// Utility: Set text on TMP if available, otherwise on UI.Text
-	static void SetText(
-#if TMP_PRESENT
-		TMP_Text tmp,
-#else
-		object tmp,
-#endif
-		Text ui, string value)
+	static void SetText(TMP_Text tmp, Text ui, string value)
 	{
-#if TMP_PRESENT
 		if (tmp != null) { tmp.text = value; return; }
-#endif
 		if (ui != null) { ui.text = value; }
 	}
-
-	// Tries to find a text label on the button for displaying option text
-	static Text GetButtonLabel(Button btn)
-	{
-		if (btn == null) return null;
-		// Prefer TMP if available
-#if TMP_PRESENT
-		var tmp = btn.GetComponentInChildren<TMPro.TMP_Text>(true);
-		if (tmp != null)
-		{
-			// Mirror TMP text into a hidden UI.Text if needed is not necessary; just set TMP
-			tmp.enableAutoSizing = true;
-			return null; // We will handle TMP separately by setting directly where needed
-		}
-#endif
-		return btn.GetComponentInChildren<Text>(true);
-	}
 }
+
 
 
