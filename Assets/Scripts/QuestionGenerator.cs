@@ -214,5 +214,3 @@ public static class QuestionGenerator
 		return Mathf.Abs(a);
 	}
 }
-
-
