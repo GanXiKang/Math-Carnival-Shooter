@@ -1733,6 +1733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1443342227}
+  - component: {fileID: 1443342228}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -1755,6 +1756,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1443342228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443342226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b279b9c1a98d148a0695d403343ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionTextTMP: {fileID: 0}
+  resultTextTMP: {fileID: 0}
+  questionTextUI: {fileID: 0}
+  resultTextUI: {fileID: 0}
+  optionButtons: []
+  level: Elementary
+  nextQuestionDelaySeconds: 1.5
 --- !u!1 &1766300380
 GameObject:
   m_ObjectHideFlags: 0
