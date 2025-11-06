@@ -678,8 +678,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '1 + 1 = '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6e7e6dd20c4b7bc418df37c1db1307dd, type: 2}
+  m_sharedMaterial: {fileID: -3891389807160805686, guid: 6e7e6dd20c4b7bc418df37c1db1307dd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1771,8 +1771,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionTextTMP: {fileID: 533976477}
   resultTextTMP: {fileID: 1640997067}
+  levelProgressTMP: {fileID: 0}
   questionTextUI: {fileID: 0}
   resultTextUI: {fileID: 0}
+  levelProgressUI: {fileID: 0}
   optionButtons:
   - {fileID: 257341695}
   - {fileID: 1766300382}
@@ -1780,6 +1782,7 @@ MonoBehaviour:
   - {fileID: 94123227}
   level: Elementary
   nextQuestionDelaySeconds: 1.5
+  correctToLevelUp: 10
 --- !u!1 &1640997065
 GameObject:
   m_ObjectHideFlags: 0
