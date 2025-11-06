@@ -76,7 +76,7 @@ public class QuizUIManager : MonoBehaviour
 
 		int chosen = SafeGetOption(optionIndex);
 		bool correct = chosen == currentQuestion.correctAnswer;
-		SetText(resultTextTMP, resultTextUI, correct ? "✅ 答對了！" : "❌ 答錯了！");
+		SetText(resultTextTMP, resultTextUI, correct ? "答對了！" : "答錯了！");
 
 		bool didLevelUp = false;
 		if (correct)
@@ -112,7 +112,7 @@ public class QuizUIManager : MonoBehaviour
 	// 顯示升級訊息 2 秒後進入下一題
 	IEnumerator ShowLevelUpThenNext()
 	{
-		SetText(resultTextTMP, resultTextUI, "⬆️ 升級！歡迎來到國中！");
+		SetText(resultTextTMP, resultTextUI, "Level Up！");
 		yield return new WaitForSeconds(2f);
 		GenerateAndDisplayQuestion();
 	}
