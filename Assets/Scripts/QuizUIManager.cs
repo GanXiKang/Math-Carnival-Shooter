@@ -21,8 +21,12 @@ public class QuizUIManager : MonoBehaviour
 	// 作答後切換到下一題的延遲時間
 	[SerializeField] private float nextQuestionDelaySeconds = 1.5f;
 
+	// 升級所需的連續答對數（目前：小學 → 國中）
+	[SerializeField] private int correctToLevelUp = 10;
+
 	private MathQuestion currentQuestion;
 	private bool isLocked;
+	private int correctInCurrentLevel;
 
 	void Awake()
 	{
@@ -74,14 +78,42 @@ public class QuizUIManager : MonoBehaviour
 		bool correct = chosen == currentQuestion.correctAnswer;
 		SetText(resultTextTMP, resultTextUI, correct ? "✅ 答對了！" : "❌ 答錯了！");
 
+		bool didLevelUp = false;
+		if (correct)
+		{
+			correctInCurrentLevel++;
+			if (level == "Elementary" && correctInCurrentLevel >= correctToLevelUp)
+			{
+				// 升級到國中並重置計數
+				level = "JuniorHigh";
+				correctInCurrentLevel = 0;
+				didLevelUp = true;
+			}
+		}
+
 		// 題目切換前先停用按鈕
 		SetButtonsInteractable(false);
-		StartCoroutine(LoadNextQuestionAfterDelay(nextQuestionDelaySeconds));
+		if (didLevelUp)
+		{
+			StartCoroutine(ShowLevelUpThenNext());
+		}
+		else
+		{
+			StartCoroutine(LoadNextQuestionAfterDelay(nextQuestionDelaySeconds));
+		}
 	}
 
 	IEnumerator LoadNextQuestionAfterDelay(float seconds)
 	{
 		yield return new WaitForSeconds(seconds);
+		GenerateAndDisplayQuestion();
+	}
+
+	// 顯示升級訊息 2 秒後進入下一題
+	IEnumerator ShowLevelUpThenNext()
+	{
+		SetText(resultTextTMP, resultTextUI, "⬆️ 升級！歡迎來到國中！");
+		yield return new WaitForSeconds(2f);
 		GenerateAndDisplayQuestion();
 	}
 
