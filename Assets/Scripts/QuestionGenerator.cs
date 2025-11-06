@@ -115,7 +115,7 @@ public static class QuestionGenerator
 			int m = UnityEngine.Random.Range(2, 11);
 			int n = UnityEngine.Random.Range(0, 101);
 			answer = n % m;
-			q = $"{n} 取模 {m} = ？";
+			q = $"{n} % {m} = ？";
 		}
 		else
 		{
