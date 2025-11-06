@@ -109,7 +109,7 @@ public class QuizUIManager : MonoBehaviour
 					level = next;
 					correctInCurrentLevel = 0;
 					didLevelUp = true;
-					SetText(resultTextTMP, resultTextUI, $"🎉 Level Up！進入 {level} 等級！");
+					SetText(resultTextTMP, resultTextUI, $"🎉 Level Up！");
 				}
 				else
 				{
