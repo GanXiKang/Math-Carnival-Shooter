@@ -34,8 +34,8 @@ public static class QuestionGenerator
 
 	static MathQuestion GenerateElementary()
 	{
-		int a = UnityEngine.Random.Range(1, 21);
-		int b = UnityEngine.Random.Range(1, 21);
+		int a = UnityEngine.Random.Range(1, 16);
+		int b = UnityEngine.Random.Range(1, 16);
 		int op = UnityEngine.Random.Range(0, 4); // 0:+, 1:-, 2:*, 3:/
 		string symbol;
 		int answer;
