@@ -8,9 +8,11 @@ public class QuizUIManager : MonoBehaviour
 	// 優先使用 TMP 文字元件
 	[SerializeField] private TMP_Text questionTextTMP;
 	[SerializeField] private TMP_Text resultTextTMP;
+	[SerializeField] private TMP_Text levelProgressTMP;
 	// 備用：使用內建 UI Text（若未使用或無法使用 TMP）
 	[SerializeField] private Text questionTextUI;
 	[SerializeField] private Text resultTextUI;
+	[SerializeField] private Text levelProgressUI;
 
 	// 答案按鈕（共 4 個）
 	[SerializeField] private Button[] optionButtons;
@@ -27,6 +29,10 @@ public class QuizUIManager : MonoBehaviour
 	private MathQuestion currentQuestion;
 	private bool isLocked;
 	private int correctInCurrentLevel;
+	private bool gameCompleted;
+
+	// 等級順序（可擴充）
+	private readonly string[] levelOrder = new string[] { "Elementary", "JuniorHigh", "HighSchool", "University", "PhD" };
 
 	void Awake()
 	{
@@ -43,6 +49,14 @@ public class QuizUIManager : MonoBehaviour
 	void GenerateAndDisplayQuestion()
 	{
 		isLocked = false;
+		if (gameCompleted)
+		{
+			// 遊戲完成後不再生成新題目，保持按鈕停用
+			SetText(questionTextTMP, questionTextUI, "");
+			SetButtonsInteractable(false);
+			UpdateLevelProgressUI();
+			return;
+		}
 		currentQuestion = QuestionGenerator.GenerateQuestion(level);
 		SetText(questionTextTMP, questionTextUI, currentQuestion.questionText);
 		SetText(resultTextTMP, resultTextUI, "");
@@ -67,6 +81,8 @@ public class QuizUIManager : MonoBehaviour
 			btn.interactable = true;
 			btn.onClick.AddListener(() => OnOptionSelected(index));
 		}
+
+		UpdateLevelProgressUI();
 	}
 
 	void OnOptionSelected(int optionIndex)
@@ -79,21 +95,41 @@ public class QuizUIManager : MonoBehaviour
 		SetText(resultTextTMP, resultTextUI, correct ? "答對了！" : "答錯了！");
 
 		bool didLevelUp = false;
+		bool didComplete = false;
 		if (correct)
 		{
 			correctInCurrentLevel++;
-			if (level == "Elementary" && correctInCurrentLevel >= correctToLevelUp)
+			int required = GetRequiredForLevel(level);
+			if (correctInCurrentLevel >= required)
 			{
-				// 升級到國中並重置計數
-				level = "JuniorHigh";
-				correctInCurrentLevel = 0;
-				didLevelUp = true;
+				string next = GetNextLevel(level);
+				if (!string.IsNullOrEmpty(next))
+				{
+					// 晉升到下一等級
+					level = next;
+					correctInCurrentLevel = 0;
+					didLevelUp = true;
+					SetText(resultTextTMP, resultTextUI, $"🎉 Level Up！進入 {level} 等級！");
+				}
+				else
+				{
+					// 已是最後等級（PhD）且達成需求 → 完成遊戲
+					didComplete = true;
+					gameCompleted = true;
+					SetText(resultTextTMP, resultTextUI, "🎓 恭喜你完成所有等級！");
+				}
 			}
 		}
 
 		// 題目切換前先停用按鈕
 		SetButtonsInteractable(false);
-		if (didLevelUp)
+		UpdateLevelProgressUI();
+		if (didComplete)
+		{
+			// 完成後不再出題
+			return;
+		}
+		else if (didLevelUp)
 		{
 			StartCoroutine(ShowLevelUpThenNext());
 		}
@@ -112,9 +148,43 @@ public class QuizUIManager : MonoBehaviour
 	// 顯示升級訊息 2 秒後進入下一題
 	IEnumerator ShowLevelUpThenNext()
 	{
-		SetText(resultTextTMP, resultTextUI, "Level Up！");
+		// 訊息已在 OnOptionSelected 設定
 		yield return new WaitForSeconds(2f);
 		GenerateAndDisplayQuestion();
+	}
+
+	// 顯示等級進度，例如："JuniorHigh: 3/8"
+	void UpdateLevelProgressUI()
+	{
+		int required = GetRequiredForLevel(level);
+		string progressText = $"{level}: {correctInCurrentLevel}/{required}";
+		SetText(levelProgressTMP, levelProgressUI, progressText);
+	}
+
+	int GetRequiredForLevel(string lvl)
+	{
+		switch (lvl)
+		{
+			case "Elementary": return 10;
+			case "JuniorHigh": return 8;
+			case "HighSchool": return 5;
+			case "University": return 3;
+			case "PhD": return 1;
+			default: return 10;
+		}
+	}
+
+	string GetNextLevel(string current)
+	{
+		for (int i = 0; i < levelOrder.Length; i++)
+		{
+			if (levelOrder[i] == current)
+			{
+				if (i + 1 < levelOrder.Length) return levelOrder[i + 1];
+				return null;
+			}
+		}
+		return null;
 	}
 
 	int SafeGetOption(int idx)
