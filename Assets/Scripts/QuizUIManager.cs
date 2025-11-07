@@ -109,14 +109,14 @@ public class QuizUIManager : MonoBehaviour
 					level = next;
 					correctInCurrentLevel = 0;
 					didLevelUp = true;
-					SetText(resultTextTMP, resultTextUI, $"🎉 Level Up！");
+					SetText(resultTextTMP, resultTextUI, $"Level Up！");
 				}
 				else
 				{
 					// 已是最後等級（PhD）且達成需求 → 完成遊戲
 					didComplete = true;
 					gameCompleted = true;
-					SetText(resultTextTMP, resultTextUI, "🎓 恭喜你完成所有等級！");
+					SetText(resultTextTMP, resultTextUI, "Finish！");
 				}
 			}
 		}
