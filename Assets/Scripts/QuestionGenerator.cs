@@ -146,7 +146,7 @@ public static class QuestionGenerator
 		int x = UnityEngine.Random.Range(-10, 11);
 		int q = UnityEngine.Random.Range(-20, 21);
 		int r = p * x + q;
-		string text = $"求解 x：{p}x + {q} = {r}";
+		string text = $"{p}x + {q} = {r}";
 		int answer = x;
 		return BuildQuestion(text, answer, "University");
 	}
