@@ -2590,9 +2590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartImages:
-  - {fileID: 571881465}
-  - {fileID: 627588960}
   - {fileID: 48614815}
+  - {fileID: 627588960}
+  - {fileID: 571881465}
   gameOverPanel: {fileID: 1510695259}
   gameOverTitleTMP: {fileID: 0}
   gameOverTitleUI: {fileID: 0}
