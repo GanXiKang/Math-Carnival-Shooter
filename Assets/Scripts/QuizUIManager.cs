@@ -17,6 +17,9 @@ public class QuizUIManager : MonoBehaviour
 	// 答案按鈕（共 4 個）
 	[SerializeField] private Button[] optionButtons;
 
+	// 生命值系統管理器
+	[SerializeField] private GameUIManager gameUIManager;
+
 	// 難度等級字串（傳入 QuestionGenerator，例如 "Elementary"、"JuniorHigh"...）
 	[SerializeField] private string level = "Elementary";
 
@@ -30,6 +33,7 @@ public class QuizUIManager : MonoBehaviour
 	private bool isLocked;
 	private int correctInCurrentLevel;
 	private bool gameCompleted;
+	private bool gameOver; // 遊戲結束標記（生命值歸零）
 
 	// 等級順序（可擴充）
 	private readonly string[] levelOrder = new string[] { "Elementary", "JuniorHigh", "HighSchool", "University", "PhD" };
@@ -42,16 +46,33 @@ public class QuizUIManager : MonoBehaviour
 
 	void Start()
 	{
+		// 訂閱 Game Over 事件
+		if (gameUIManager != null)
+		{
+			gameUIManager.OnGameOver += OnGameOver;
+		}
+		
 		GenerateAndDisplayQuestion();
+	}
+	
+	void OnDestroy()
+	{
+		// 取消訂閱事件
+		if (gameUIManager != null)
+		{
+			gameUIManager.OnGameOver -= OnGameOver;
+		}
 	}
 
 	// 產生新題目並更新介面
 	void GenerateAndDisplayQuestion()
 	{
 		isLocked = false;
-		if (gameCompleted)
+		
+		// 檢查遊戲是否結束（生命值歸零或完成所有等級）
+		if (gameOver || gameCompleted)
 		{
-			// 遊戲完成後不再生成新題目，保持按鈕停用
+			// 遊戲結束後不再生成新題目，保持按鈕停用
 			SetText(questionTextTMP, questionTextUI, "");
 			SetButtonsInteractable(false);
 			UpdateLevelProgressUI();
@@ -87,7 +108,7 @@ public class QuizUIManager : MonoBehaviour
 
 	void OnOptionSelected(int optionIndex)
 	{
-		if (isLocked) return;
+		if (isLocked || gameOver || gameCompleted) return;
 		isLocked = true;
 
 		int chosen = SafeGetOption(optionIndex);
@@ -96,6 +117,8 @@ public class QuizUIManager : MonoBehaviour
 
 		bool didLevelUp = false;
 		bool didComplete = false;
+		bool isGameOver = false;
+		
 		if (correct)
 		{
 			correctInCurrentLevel++;
@@ -120,13 +143,27 @@ public class QuizUIManager : MonoBehaviour
 				}
 			}
 		}
+		else
+		{
+			// 答錯：失去一點生命值
+			if (gameUIManager != null)
+			{
+				isGameOver = gameUIManager.LoseLife();
+				if (isGameOver)
+				{
+					gameOver = true;
+					SetText(resultTextTMP, resultTextUI, "Game Over！");
+				}
+			}
+		}
 
 		// 題目切換前先停用按鈕
 		SetButtonsInteractable(false);
 		UpdateLevelProgressUI();
-		if (didComplete)
+		
+		if (isGameOver || didComplete)
 		{
-			// 完成後不再出題
+			// 遊戲結束或完成後不再出題
 			return;
 		}
 		else if (didLevelUp)
@@ -203,6 +240,34 @@ public class QuizUIManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Game Over 事件處理
+	/// </summary>
+	void OnGameOver()
+	{
+		gameOver = true;
+		SetButtonsInteractable(false);
+	}
+	
+	/// <summary>
+	/// 重新開始 quiz（由 GameUIManager 的 Retry 按鈕呼叫）
+	/// </summary>
+	public void RestartQuiz()
+	{
+		// 重置遊戲狀態
+		gameOver = false;
+		gameCompleted = false;
+		correctInCurrentLevel = 0;
+		level = "Elementary";
+		isLocked = false;
+		
+		// 清除結果文字
+		SetText(resultTextTMP, resultTextUI, "");
+		
+		// 重新生成題目
+		GenerateAndDisplayQuestion();
+	}
+	
 	// 工具方法：優先設定 TMP，否則設定 UI.Text
 	static void SetText(TMP_Text tmp, Text ui, string value)
 	{
