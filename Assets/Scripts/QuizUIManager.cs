@@ -17,6 +17,11 @@ public class QuizUIManager : MonoBehaviour
 	// 答案按鈕（共 4 個）
 	[SerializeField] private Button[] optionButtons;
 
+	// 星星顯示（右上角）：容器與星星預置物（動態生成）
+	[SerializeField] private RectTransform starsContainer; // 放在畫面右上角的容器（已錨點到右上）
+	[SerializeField] private GameObject starPrefab; // 星星預置物（建議為 UI Image 或含 Image 的物件）
+	[SerializeField] private int maxStars = 5; // 星星上限
+
 	// 生命值系統管理器
 	[SerializeField] private GameUIManager gameUIManager;
 
@@ -53,6 +58,7 @@ public class QuizUIManager : MonoBehaviour
 		}
 		
 		GenerateAndDisplayQuestion();
+		UpdateStarsUI(); // 初始顯示（Level 1 -> 1 顆星）
 	}
 	
 	void OnDestroy()
@@ -133,6 +139,7 @@ public class QuizUIManager : MonoBehaviour
 					correctInCurrentLevel = 0;
 					didLevelUp = true;
 					SetText(resultTextTMP, resultTextUI, $"Level Up！");
+					UpdateStarsUI(); // 等級變更時更新星星顯示（+1，最多 5）
 				}
 				else
 				{
@@ -266,6 +273,7 @@ public class QuizUIManager : MonoBehaviour
 		
 		// 重新生成題目
 		GenerateAndDisplayQuestion();
+		UpdateStarsUI(); // 重置後回到 1 顆星
 	}
 	
 	// 工具方法：優先設定 TMP，否則設定 UI.Text
@@ -273,6 +281,68 @@ public class QuizUIManager : MonoBehaviour
 	{
 		if (tmp != null) { tmp.text = value; return; }
 		if (ui != null) { ui.text = value; }
+	}
+
+	// 計算目前等級對應的星星數（Level1=1顆，Level2=2顆，...，最多5顆）
+	int GetStarCountForCurrentLevel()
+	{
+		int index = GetLevelIndex(level); // Elementary=0, JuniorHigh=1, ...
+		int stars = Mathf.Clamp(index + 1, 1, maxStars);
+		return stars;
+	}
+
+	// 取得等級在 levelOrder 的索引，找不到時回傳 0（預設 Elementary）
+	int GetLevelIndex(string lvl)
+	{
+		for (int i = 0; i < levelOrder.Length; i++)
+		{
+			if (levelOrder[i] == lvl) return i;
+		}
+		return 0;
+	}
+
+	// 依目前等級動態更新星星顯示（清空後再生成）
+	void UpdateStarsUI()
+	{
+		if (starsContainer == null || starPrefab == null) return;
+
+		// 移除舊的星星
+		for (int i = starsContainer.childCount - 1; i >= 0; i--)
+		{
+			var child = starsContainer.GetChild(i);
+			Destroy(child.gameObject);
+		}
+
+		int starCount = GetStarCountForCurrentLevel();
+
+		// 確保有水平排版（維持等距間隔），若沒有則自動加上
+		var hlg = starsContainer.GetComponent<HorizontalLayoutGroup>();
+		if (hlg == null)
+		{
+			hlg = starsContainer.gameObject.AddComponent<HorizontalLayoutGroup>();
+			hlg.childAlignment = TextAnchor.UpperRight;
+			hlg.childControlHeight = true;
+			hlg.childControlWidth = true;
+			hlg.childForceExpandHeight = false;
+			hlg.childForceExpandWidth = false;
+			hlg.spacing = 8f; // 星星之間的水平間距
+			hlg.reverseArrangement = true; // 讓新增的星星從右往左排列（右上角）
+		}
+
+		// 生成星星
+		for (int i = 0; i < starCount; i++)
+		{
+			var star = Instantiate(starPrefab, starsContainer);
+			var rt = star.GetComponent<RectTransform>();
+			if (rt != null)
+			{
+				rt.anchorMin = new Vector2(1f, 1f);
+				rt.anchorMax = new Vector2(1f, 1f);
+				rt.pivot = new Vector2(1f, 1f);
+				rt.anchoredPosition = Vector2.zero;
+				rt.localScale = Vector3.one;
+			}
+		}
 	}
 }
 
