@@ -209,12 +209,12 @@ public class QuizUIManager : MonoBehaviour
 	{
 		switch (lvl)
 		{
-			case "Elementary": return 10;
-			case "JuniorHigh": return 8;
-			case "HighSchool": return 6;
-			case "University": return 4;
-			case "PhD": return 3;
-			default: return 10;
+			case "Elementary": return 1;
+			case "JuniorHigh": return 1;
+			case "HighSchool": return 1;
+			case "University": return 1;
+			case "PhD": return 1;
+			default: return 1;
 		}
 	}
 
