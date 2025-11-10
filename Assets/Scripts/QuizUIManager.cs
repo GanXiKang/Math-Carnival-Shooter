@@ -204,9 +204,9 @@ public class QuizUIManager : MonoBehaviour
 		{
 			case "Elementary": return 10;
 			case "JuniorHigh": return 8;
-			case "HighSchool": return 5;
-			case "University": return 3;
-			case "PhD": return 1;
+			case "HighSchool": return 6;
+			case "University": return 4;
+			case "PhD": return 3;
 			default: return 10;
 		}
 	}
