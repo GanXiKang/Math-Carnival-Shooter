@@ -2268,6 +2268,7 @@ GameObject:
   - component: {fileID: 1443342227}
   - component: {fileID: 1443342228}
   - component: {fileID: 1443342229}
+  - component: {fileID: 1443342230}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -2343,6 +2344,25 @@ MonoBehaviour:
   maxLives: 3
   heartFull: {fileID: -902086654454736923, guid: 19ce8fbd8090a3c47bb34d4e55c17e9d, type: 3}
   heartEmpty: {fileID: 0}
+--- !u!114 &1443342230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443342226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e692e5cb0ddb16d4d809972575e2d69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCorrect: 0
+  destroyBalloonOnClick: 1
+  feedbackDurationSeconds: 1
+  correctFeedbackPrefab: {fileID: 0}
+  wrongFeedbackPrefab: {fileID: 0}
+  uiCanvas: {fileID: 0}
+  feedbackParentOverride: {fileID: 0}
 --- !u!1 &1510695259
 GameObject:
   m_ObjectHideFlags: 0
