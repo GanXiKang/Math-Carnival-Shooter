@@ -19,7 +19,6 @@ public class GameUIManager : MonoBehaviour
 	[Header("設定")]
 	[SerializeField] private int maxLives = 3; // 最大生命值
 	[SerializeField] private Sprite heartFull; // 完整的心形圖示
-	[SerializeField] private Sprite heartEmpty; // 空的心形圖示（可選，用透明度代替）
 	
 	private int currentLives;
 	private bool isGameOver;
@@ -100,12 +99,7 @@ public class GameUIManager : MonoBehaviour
 			}
 			else
 			{
-				// 顯示空的心形（降低透明度或使用空圖示）
-				if (heartEmpty != null)
-				{
-					heartImages[i].sprite = heartEmpty;
-				}
-				heartImages[i].color = new Color(1f, 1f, 1f, 0.3f); // 降低透明度
+				heartImages[i].color = new Color(1f, 1f, 1f, 0.25f); // 降低透明度
 			}
 		}
 	}
