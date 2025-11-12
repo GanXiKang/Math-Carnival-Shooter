@@ -315,50 +315,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 94123225}
   m_CullTransparentMesh: 1
---- !u!1 &113154732
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 113154733}
-  - component: {fileID: 113154734}
-  m_Layer: 5
-  m_Name: StarContainer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &113154733
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113154732}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 605445655}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: -25}
-  m_SizeDelta: {x: 500, y: 120}
-  m_Pivot: {x: 1, y: 1}
---- !u!222 &113154734
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113154732}
-  m_CullTransparentMesh: 1
 --- !u!1 &158980440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1403,6 @@ RectTransform:
   - {fileID: 48614814}
   - {fileID: 627588959}
   - {fileID: 571881464}
-  - {fileID: 113154733}
   - {fileID: 1510695262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2313,9 +2268,6 @@ MonoBehaviour:
   - {fileID: 1766300382}
   - {fileID: 158980442}
   - {fileID: 94123227}
-  starsContainer: {fileID: 113154733}
-  starPrefab: {fileID: 1599999148126693579, guid: c8ec23e8795f9e14eafa1e6cc05094ac, type: 3}
-  maxStars: 5
   gameUIManager: {fileID: 1443342229}
   level: Elementary
   nextQuestionDelaySeconds: 1.5
@@ -2342,7 +2294,6 @@ MonoBehaviour:
   retryButton: {fileID: 367374568}
   maxLives: 3
   heartFull: {fileID: -902086654454736923, guid: 19ce8fbd8090a3c47bb34d4e55c17e9d, type: 3}
-  heartEmpty: {fileID: 0}
 --- !u!1 &1510695259
 GameObject:
   m_ObjectHideFlags: 0
