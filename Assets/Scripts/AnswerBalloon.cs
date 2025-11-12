@@ -103,5 +103,3 @@ public class AnswerBalloon : MonoBehaviour, IPointerClickHandler
 		isCorrect = correct;
 	}
 }
-
-
