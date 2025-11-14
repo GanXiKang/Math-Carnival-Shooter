@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 4
+  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1 &158980440
 GameObject:
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 3
+  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1 &257341693
 GameObject:
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 1
+  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1 &367374566
 GameObject:
@@ -2924,7 +2924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 2
+  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
