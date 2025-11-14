@@ -129,9 +129,6 @@ public class QuizUIManager : MonoBehaviour
 		UpdateLevelProgressUI();
 	}
 	
-	/// <summary>
-	/// 重置所有氣球為顯示狀態
-	/// </summary>
 	void ResetAllBalloons()
 	{
 		if (balloonObjects == null)
@@ -149,9 +146,6 @@ public class QuizUIManager : MonoBehaviour
 		}
 	}
 	
-	/// <summary>
-	/// 更新氣球選項數值
-	/// </summary>
 	void UpdateBalloonOptions()
 	{
 		if (balloonObjects == null || currentQuestion == null || currentQuestion.options == null)
@@ -255,7 +249,6 @@ public class QuizUIManager : MonoBehaviour
 		GenerateAndDisplayQuestion();
 	}
 
-	// 顯示升級訊息 2 秒後進入下一題
 	IEnumerator ShowLevelUpThenNext()
 	{
 		// 訊息已在 OnOptionSelected 設定
@@ -344,97 +337,46 @@ public class QuizUIManager : MonoBehaviour
 		GenerateAndDisplayQuestion();
 	}
 	
-	/// <summary>
-	/// 處理氣球點擊事件（由 BalloonButton 呼叫）
-	/// </summary>
-	/// <param name="balloon">被點擊的氣球按鈕</param>
-	/// <param name="optionValue">選項數值</param>
 	public void HandleBalloonClicked(BalloonButton balloon, int optionValue)
 	{
 		// 如果已鎖定或遊戲結束，不處理
 		if (isLocked || gameOver || gameCompleted)
-		{
-			Debug.Log("QuizUIManager: HandleBalloonClicked - 遊戲已鎖定或結束，忽略點擊");
 			return;
-		}
 		
 		// 如果沒有當前題目，無法判斷
 		if (currentQuestion == null)
-		{
-			Debug.LogWarning("QuizUIManager: 沒有當前題目！");
 			return;
-		}
 		
 		// 檢查氣球參考
 		if (balloon == null)
-		{
-			Debug.LogError("QuizUIManager: HandleBalloonClicked - balloon 為 null！");
 			return;
-		}
 		
 		isLocked = true;
 		
 		// 檢查答案是否正確
 		bool isCorrect = (optionValue == currentQuestion.correctAnswer);
-		Debug.Log($"QuizUIManager: 氣球點擊 - 選項值: {optionValue}, 正確答案: {currentQuestion.correctAnswer}, 是否正確: {isCorrect}");
-		
-		// 顯示結果圖片
-		if (resultImage != null)
+
+		// 設定結果圖片位置為氣球位置
+		// 使用 RectTransform 確保 UI 元素正確定位
+		RectTransform balloonRect = balloon.GetComponent<RectTransform>();
+		RectTransform resultRect = resultImage.GetComponent<RectTransform>();
+
+		if (balloonRect != null && resultRect != null)
 		{
-			// 設定結果圖片位置為氣球位置
-			// 使用 RectTransform 確保 UI 元素正確定位
-			RectTransform balloonRect = balloon.GetComponent<RectTransform>();
-			RectTransform resultRect = resultImage.GetComponent<RectTransform>();
-			
-			if (balloonRect != null && resultRect != null)
-			{
-				// UI 元素：使用 anchoredPosition
-				resultRect.position = balloonRect.position;
-				Debug.Log($"QuizUIManager: 設定結果圖片位置為氣球位置: {balloonRect.position}");
-			}
-			else if (balloon.transform != null)
-			{
-				// 非 UI 元素：使用 transform.position
-				resultImage.transform.position = balloon.transform.position;
-				Debug.Log($"QuizUIManager: 設定結果圖片位置為氣球位置: {balloon.transform.position}");
-			}
-			
-			// 設定正確或錯誤的 Sprite
-			if (isCorrect)
-			{
-				if (correctSprite != null)
-				{
-					resultImage.sprite = correctSprite;
-					Debug.Log("QuizUIManager: 設定正確答案 Sprite");
-				}
-				else
-				{
-					Debug.LogWarning("QuizUIManager: correctSprite 為 null！");
-				}
-			}
-			else
-			{
-				if (wrongSprite != null)
-				{
-					resultImage.sprite = wrongSprite;
-					Debug.Log("QuizUIManager: 設定錯誤答案 Sprite");
-				}
-				else
-				{
-					Debug.LogWarning("QuizUIManager: wrongSprite 為 null！");
-				}
-			}
-			
-			// 確保結果圖片可見
-			resultImage.gameObject.SetActive(true);
-			resultImage.enabled = true;
-			Debug.Log("QuizUIManager: 顯示結果圖片");
+			// UI 元素：使用 anchoredPosition
+			resultRect.position = balloonRect.position;
 		}
-		else
+		else if (balloon.transform != null)
 		{
-			Debug.LogWarning("QuizUIManager: resultImage 為 null，無法顯示結果圖片！");
+			// 非 UI 元素：使用 transform.position
+			resultImage.transform.position = balloon.transform.position;
 		}
-		
+
+		resultImage.sprite = isCorrect ? correctSprite : wrongSprite;
+		// 確保結果圖片可見
+		resultImage.gameObject.SetActive(true);
+		resultImage.enabled = true;
+
 		// 更新文字回饋
 		SetText(resultTextTMP, resultTextUI, isCorrect ? "答對了！" : "答錯了！");
 		
@@ -447,7 +389,6 @@ public class QuizUIManager : MonoBehaviour
 		{
 			correctInCurrentLevel++;
 			int required = GetRequiredForLevel(level);
-			Debug.Log($"QuizUIManager: 答對！當前進度: {correctInCurrentLevel}/{required}");
 			
 			if (correctInCurrentLevel >= required)
 			{
@@ -459,15 +400,13 @@ public class QuizUIManager : MonoBehaviour
 					correctInCurrentLevel = 0;
 					didLevelUp = true;
 					SetText(resultTextTMP, resultTextUI, $"Level Up！");
-					Debug.Log($"QuizUIManager: 等級提升至 {level}！");
 				}
 				else
 				{
-					// 已是最後等級（PhD）且達成需求 → 完成遊戲
+					//完成遊戲
 					didComplete = true;
 					gameCompleted = true;
 					SetText(resultTextTMP, resultTextUI, "Finish！");
-					Debug.Log("QuizUIManager: 完成所有等級！");
 				}
 			}
 		}
@@ -481,60 +420,29 @@ public class QuizUIManager : MonoBehaviour
 				{
 					gameOver = true;
 					SetText(resultTextTMP, resultTextUI, "Game Over！");
-					Debug.Log("QuizUIManager: 遊戲結束！");
 				}
-				else
-				{
-					Debug.Log($"QuizUIManager: 答錯，失去一點生命值，剩餘生命: {gameUIManager.CurrentLives}");
-				}
-			}
-			else
-			{
-				Debug.LogWarning("QuizUIManager: gameUIManager 為 null，無法處理生命值！");
 			}
 		}
 		
 		// 更新進度顯示
 		UpdateLevelProgressUI();
 		
-		// 如果遊戲結束或完成，不再繼續
 		if (isGameOver || didComplete)
-		{
-			Debug.Log("QuizUIManager: 遊戲結束或完成，不再生成新題目");
 			return;
-		}
 		
-		// 啟動 Coroutine：顯示結果 1 秒，等級提升額外等待 1 秒
 		StartCoroutine(ShowResultThenNextQuestion(1f, didLevelUp));
 	}
 	
-	/// <summary>
-	/// 顯示結果圖片後進入下一題
-	/// </summary>
-	/// <param name="delaySeconds">基本延遲秒數（結果圖片顯示時間）</param>
-	/// <param name="isLevelUp">是否為等級提升</param>
+	// 顯示結果圖片後進入下一題
 	IEnumerator ShowResultThenNextQuestion(float delaySeconds, bool isLevelUp)
 	{
-		Debug.Log($"QuizUIManager: 開始顯示結果，等待 {delaySeconds} 秒");
-		
-		// 等待基本時間（結果圖片顯示時間）
 		yield return new WaitForSeconds(delaySeconds);
-		
-		// 如果是等級提升，額外等待 1 秒
 		if (isLevelUp)
-		{
-			Debug.Log("QuizUIManager: 等級提升，額外等待 1 秒");
 			yield return new WaitForSeconds(1f); // 總共 2 秒
-		}
-		
-		Debug.Log("QuizUIManager: 進入下一題");
-		// 進入下一題
+
 		NextQuestion();
 	}
 	
-	/// <summary>
-	/// 進入下一題（重置 UI 並生成新題目）
-	/// </summary>
 	public void NextQuestion()
 	{
 		Debug.Log("QuizUIManager: NextQuestion - 重置 UI 並生成新題目");
