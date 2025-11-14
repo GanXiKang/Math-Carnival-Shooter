@@ -14,32 +14,21 @@ public class QuizUIManager : MonoBehaviour
 	[SerializeField] private Text questionTextUI;
 	[SerializeField] private Text resultTextUI;
 	[SerializeField] private Text levelProgressUI;
-
-	// 答案按鈕（共 4 個）
 	[SerializeField] private Button[] optionButtons;
 	
 	[Header("氣球答案系統")]
-	[Tooltip("氣球物件列表（A, B, C, D）")]
 	[SerializeField] private List<GameObject> balloonObjects;
-	
 	[Tooltip("結果回饋圖片（顯示 Correct/Wrong）")]
 	[SerializeField] private Image resultImage;
-	
-	[Tooltip("正確答案的 Sprite")]
 	[SerializeField] private Sprite correctSprite;
-	
-	[Tooltip("錯誤答案的 Sprite")]
 	[SerializeField] private Sprite wrongSprite;
 
 	// 生命值系統管理器
 	[SerializeField] private GameUIManager gameUIManager;
-
 	// 難度等級字串（傳入 QuestionGenerator，例如 "Elementary"、"JuniorHigh"...）
 	[SerializeField] private string level = "Elementary";
-
 	// 作答後切換到下一題的延遲時間
 	[SerializeField] private float nextQuestionDelaySeconds = 1.5f;
-
 	// 升級所需的連續答對數（目前：小學 → 國中）
 	[SerializeField] private int correctToLevelUp = 10;
 
@@ -60,22 +49,16 @@ public class QuizUIManager : MonoBehaviour
 
 	void Start()
 	{
-		// 訂閱 Game Over 事件
 		if (gameUIManager != null)
-		{
 			gameUIManager.OnGameOver += OnGameOver;
-		}
 		
 		GenerateAndDisplayQuestion();
 	}
 	
 	void OnDestroy()
 	{
-		// 取消訂閱事件
 		if (gameUIManager != null)
-		{
 			gameUIManager.OnGameOver -= OnGameOver;
-		}
 	}
 
 	// 產生新題目並更新介面
@@ -128,9 +111,6 @@ public class QuizUIManager : MonoBehaviour
 		UpdateLevelProgressUI();
 	}
 	
-	/// <summary>
-	/// 更新氣球選項數值
-	/// </summary>
 	void UpdateBalloonOptions()
 	{
 		if (balloonObjects == null || currentQuestion == null || currentQuestion.options == null) return;
@@ -284,18 +264,12 @@ public class QuizUIManager : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Game Over 事件處理
-	/// </summary>
 	void OnGameOver()
 	{
 		gameOver = true;
 		SetButtonsInteractable(false);
 	}
 	
-	/// <summary>
-	/// 重新開始 quiz（由 GameUIManager 的 Retry 按鈕呼叫）
-	/// </summary>
 	public void RestartQuiz()
 	{
 		// 重置遊戲狀態
@@ -312,11 +286,6 @@ public class QuizUIManager : MonoBehaviour
 		GenerateAndDisplayQuestion();
 	}
 	
-	/// <summary>
-	/// 處理氣球點擊事件（由 BalloonButton 呼叫）
-	/// </summary>
-	/// <param name="balloon">被點擊的氣球按鈕</param>
-	/// <param name="optionValue">選項數值</param>
 	public void HandleBalloonClicked(BalloonButton balloon, int optionValue)
 	{
 		// 如果已鎖定或遊戲結束，不處理
@@ -342,13 +311,9 @@ public class QuizUIManager : MonoBehaviour
 			
 			// 設定正確或錯誤的 Sprite
 			if (isCorrect && correctSprite != null)
-			{
 				resultImage.sprite = correctSprite;
-			}
 			else if (!isCorrect && wrongSprite != null)
-			{
 				resultImage.sprite = wrongSprite;
-			}
 			
 			// 顯示結果圖片
 			resultImage.gameObject.SetActive(true);
@@ -413,11 +378,6 @@ public class QuizUIManager : MonoBehaviour
 		StartCoroutine(ShowResultThenNextQuestion(1f, didLevelUp));
 	}
 	
-	/// <summary>
-	/// 顯示結果圖片後進入下一題
-	/// </summary>
-	/// <param name="delaySeconds">延遲秒數</param>
-	/// <param name="isLevelUp">是否為等級提升</param>
 	IEnumerator ShowResultThenNextQuestion(float delaySeconds, bool isLevelUp)
 	{
 		yield return new WaitForSeconds(delaySeconds);
@@ -432,9 +392,6 @@ public class QuizUIManager : MonoBehaviour
 		NextQuestion();
 	}
 	
-	/// <summary>
-	/// 進入下一題（重置 UI 並生成新題目）
-	/// </summary>
 	public void NextQuestion()
 	{
 		// 重置所有氣球為顯示狀態
