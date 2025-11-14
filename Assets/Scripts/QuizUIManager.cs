@@ -51,12 +51,8 @@ public class QuizUIManager : MonoBehaviour
 	{
 		if (gameUIManager != null)
 			gameUIManager.OnGameOver += OnGameOver;
-		
-		// 初始化時隱藏結果圖片
 		if (resultImage != null)
-		{
 			resultImage.gameObject.SetActive(false);
-		}
 		
 		GenerateAndDisplayQuestion();
 	}
