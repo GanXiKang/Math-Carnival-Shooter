@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,6 +18,18 @@ public class QuizUIManager : MonoBehaviour
 	// 答案按鈕（共 4 個）
 	[SerializeField] private Button[] optionButtons;
 	
+	[Header("氣球答案系統")]
+	[Tooltip("氣球物件列表（A, B, C, D）")]
+	[SerializeField] private List<GameObject> balloonObjects;
+	
+	[Tooltip("結果回饋圖片（顯示 Correct/Wrong）")]
+	[SerializeField] private Image resultImage;
+	
+	[Tooltip("正確答案的 Sprite")]
+	[SerializeField] private Sprite correctSprite;
+	
+	[Tooltip("錯誤答案的 Sprite")]
+	[SerializeField] private Sprite wrongSprite;
 
 	// 生命值系統管理器
 	[SerializeField] private GameUIManager gameUIManager;
@@ -83,28 +96,58 @@ public class QuizUIManager : MonoBehaviour
 		SetText(questionTextTMP, questionTextUI, currentQuestion.questionText);
 		SetText(resultTextTMP, resultTextUI, "");
 
-		if (optionButtons == null || optionButtons.Length < 4) return;
-
-		for (int i = 0; i < optionButtons.Length; i++)
+		// 更新按鈕系統（如果使用按鈕）
+		if (optionButtons != null && optionButtons.Length >= 4)
 		{
-			int index = i; // 捕捉閉包用
-			var btn = optionButtons[i];
-			if (btn == null) continue;
+			for (int i = 0; i < optionButtons.Length; i++)
+			{
+				int index = i; // 捕捉閉包用
+				var btn = optionButtons[i];
+				if (btn == null) continue;
 
-			btn.onClick.RemoveAllListeners();
-			// 將選項文字設到 TMP 或 UI.Text（若存在）
-			TMP_Text tmpLabel = btn.GetComponentInChildren<TMP_Text>(true);
-			Text uiLabel = btn.GetComponentInChildren<Text>(true);
-			string optionText = (currentQuestion.options != null && currentQuestion.options.Length > index)
-				? currentQuestion.options[index].ToString()
-				: "?";
-			SetText(tmpLabel, uiLabel, optionText);
+				btn.onClick.RemoveAllListeners();
+				// 將選項文字設到 TMP 或 UI.Text（若存在）
+				TMP_Text tmpLabel = btn.GetComponentInChildren<TMP_Text>(true);
+				Text uiLabel = btn.GetComponentInChildren<Text>(true);
+				string optionText = (currentQuestion.options != null && currentQuestion.options.Length > index)
+					? currentQuestion.options[index].ToString()
+					: "?";
+				SetText(tmpLabel, uiLabel, optionText);
 
-			btn.interactable = true;
-			btn.onClick.AddListener(() => OnOptionSelected(index));
+				btn.interactable = true;
+				btn.onClick.AddListener(() => OnOptionSelected(index));
+			}
+		}
+		
+		// 更新氣球系統（如果使用氣球）
+		if (balloonObjects != null && balloonObjects.Count > 0 && currentQuestion.options != null)
+		{
+			UpdateBalloonOptions();
 		}
 
 		UpdateLevelProgressUI();
+	}
+	
+	/// <summary>
+	/// 更新氣球選項數值
+	/// </summary>
+	void UpdateBalloonOptions()
+	{
+		if (balloonObjects == null || currentQuestion == null || currentQuestion.options == null) return;
+		
+		for (int i = 0; i < balloonObjects.Count && i < currentQuestion.options.Length; i++)
+		{
+			if (balloonObjects[i] == null) continue;
+			
+			// 取得氣球上的 BalloonButton 腳本
+			var balloonButton = balloonObjects[i].GetComponent<BalloonButton>();
+			if (balloonButton != null)
+			{
+				// 設定選項數值
+				balloonButton.SetOptionValue(currentQuestion.options[i]);
+				balloonButton.SetQuizUI(this);
+			}
+		}
 	}
 
 	void OnOptionSelected(int optionIndex)
@@ -266,6 +309,153 @@ public class QuizUIManager : MonoBehaviour
 		SetText(resultTextTMP, resultTextUI, "");
 		
 		// 重新生成題目
+		GenerateAndDisplayQuestion();
+	}
+	
+	/// <summary>
+	/// 處理氣球點擊事件（由 BalloonButton 呼叫）
+	/// </summary>
+	/// <param name="balloon">被點擊的氣球按鈕</param>
+	/// <param name="optionValue">選項數值</param>
+	public void HandleBalloonClicked(BalloonButton balloon, int optionValue)
+	{
+		// 如果已鎖定或遊戲結束，不處理
+		if (isLocked || gameOver || gameCompleted) return;
+		
+		// 如果沒有當前題目，無法判斷
+		if (currentQuestion == null)
+		{
+			Debug.LogWarning("QuizUIManager: 沒有當前題目！");
+			return;
+		}
+		
+		isLocked = true;
+		
+		// 檢查答案是否正確
+		bool isCorrect = (optionValue == currentQuestion.correctAnswer);
+		
+		// 顯示結果圖片
+		if (resultImage != null && balloon != null)
+		{
+			// 設定結果圖片位置為氣球位置
+			resultImage.transform.position = balloon.transform.position;
+			
+			// 設定正確或錯誤的 Sprite
+			if (isCorrect && correctSprite != null)
+			{
+				resultImage.sprite = correctSprite;
+			}
+			else if (!isCorrect && wrongSprite != null)
+			{
+				resultImage.sprite = wrongSprite;
+			}
+			
+			// 顯示結果圖片
+			resultImage.gameObject.SetActive(true);
+		}
+		
+		// 更新文字回饋
+		SetText(resultTextTMP, resultTextUI, isCorrect ? "答對了！" : "答錯了！");
+		
+		// 處理答對或答錯的邏輯
+		bool didLevelUp = false;
+		bool didComplete = false;
+		bool isGameOver = false;
+		
+		if (isCorrect)
+		{
+			correctInCurrentLevel++;
+			int required = GetRequiredForLevel(level);
+			if (correctInCurrentLevel >= required)
+			{
+				string next = GetNextLevel(level);
+				if (!string.IsNullOrEmpty(next))
+				{
+					// 晉升到下一等級
+					level = next;
+					correctInCurrentLevel = 0;
+					didLevelUp = true;
+					SetText(resultTextTMP, resultTextUI, $"Level Up！");
+				}
+				else
+				{
+					// 已是最後等級（PhD）且達成需求 → 完成遊戲
+					didComplete = true;
+					gameCompleted = true;
+					SetText(resultTextTMP, resultTextUI, "Finish！");
+				}
+			}
+		}
+		else
+		{
+			// 答錯：失去一點生命值
+			if (gameUIManager != null)
+			{
+				isGameOver = gameUIManager.LoseLife();
+				if (isGameOver)
+				{
+					gameOver = true;
+					SetText(resultTextTMP, resultTextUI, "Game Over！");
+				}
+			}
+		}
+		
+		// 更新進度顯示
+		UpdateLevelProgressUI();
+		
+		// 如果遊戲結束或完成，不再繼續
+		if (isGameOver || didComplete)
+		{
+			return;
+		}
+		
+		// 1 秒後進入下一題
+		StartCoroutine(ShowResultThenNextQuestion(1f, didLevelUp));
+	}
+	
+	/// <summary>
+	/// 顯示結果圖片後進入下一題
+	/// </summary>
+	/// <param name="delaySeconds">延遲秒數</param>
+	/// <param name="isLevelUp">是否為等級提升</param>
+	IEnumerator ShowResultThenNextQuestion(float delaySeconds, bool isLevelUp)
+	{
+		yield return new WaitForSeconds(delaySeconds);
+		
+		// 如果是等級提升，額外等待
+		if (isLevelUp)
+		{
+			yield return new WaitForSeconds(1f); // 總共 2 秒
+		}
+		
+		// 進入下一題
+		NextQuestion();
+	}
+	
+	/// <summary>
+	/// 進入下一題（重置 UI 並生成新題目）
+	/// </summary>
+	public void NextQuestion()
+	{
+		// 重置所有氣球為顯示狀態
+		if (balloonObjects != null)
+		{
+			foreach (var balloon in balloonObjects)
+			{
+				if (balloon != null)
+				{
+					balloon.SetActive(true);
+				}
+			}
+		}
+		
+		// 隱藏結果圖片
+		if (resultImage != null)
+		{
+			resultImage.gameObject.SetActive(false);
+		}
+		
+		// 生成並顯示新題目
 		GenerateAndDisplayQuestion();
 	}
 	
