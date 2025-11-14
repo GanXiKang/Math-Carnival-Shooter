@@ -10,26 +10,12 @@ public class BalloonButton : MonoBehaviour, IPointerClickHandler
 	[Header("氣球設定")]
 	[Tooltip("此氣球代表的選項數值")]
 	[SerializeField] private int optionValue;
-	
-	[Tooltip("氣球物件本身（通常是此 GameObject）")]
-	[SerializeField] private GameObject balloonObject;
-	
-	[Tooltip("QuizUIManager 的參考（可在 Inspector 中設定，或自動尋找）")]
-	[SerializeField] private QuizUIManager quizUI;
-	
+    [SerializeField] private QuizUIManager quizUI;
+    private GameObject balloonObject;
+
 	void Awake()
 	{
-		// 如果 balloonObject 未設定，預設為此 GameObject
-		if (balloonObject == null)
-		{
-			balloonObject = gameObject;
-		}
-		
-		// 如果 quizUI 未設定，自動尋找場景中的 QuizUIManager
-		if (quizUI == null)
-		{
-			quizUI = FindObjectOfType<QuizUIManager>();
-		}
+		balloonObject = gameObject;
 	}
 	
 	/// <summary>
@@ -55,28 +41,16 @@ public class BalloonButton : MonoBehaviour, IPointerClickHandler
 		quizUI.HandleBalloonClicked(this, optionValue);
 	}
 	
-	/// <summary>
-	/// 設定選項數值（可在執行時動態設定）
-	/// </summary>
-	/// <param name="value">選項數值</param>
 	public void SetOptionValue(int value)
 	{
 		optionValue = value;
 	}
-	
-	/// <summary>
-	/// 取得選項數值
-	/// </summary>
-	/// <returns>選項數值</returns>
+
 	public int GetOptionValue()
 	{
 		return optionValue;
 	}
 	
-	/// <summary>
-	/// 設定 QuizUIManager 參考
-	/// </summary>
-	/// <param name="manager">QuizUIManager 實例</param>
 	public void SetQuizUI(QuizUIManager manager)
 	{
 		quizUI = manager;
