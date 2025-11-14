@@ -24,23 +24,13 @@ public class BalloonButton : MonoBehaviour, IPointerClickHandler
 	/// <param name="eventData">點擊事件資料</param>
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		// 如果 QuizUIManager 不存在，無法處理
-		if (quizUI == null)
-		{
-			Debug.LogWarning("BalloonButton: QuizUIManager 未找到！");
-			return;
-		}
-		
 		// 隱藏氣球
-		if (balloonObject != null)
-		{
-			balloonObject.SetActive(false);
-		}
-		
+		balloonObject.SetActive(false);
 		// 通知 QuizUIManager 處理氣球點擊
 		quizUI.HandleBalloonClicked(this, optionValue);
-	}
-	
+        Debug.Log($"BalloonButton clicked! quizUI: {quizUI}, optionValue: {optionValue}");
+    }
+
 	public void SetOptionValue(int value)
 	{
 		optionValue = value;
