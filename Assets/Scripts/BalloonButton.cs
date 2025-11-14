@@ -1,19 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// 處理氣球按鈕點擊事件的腳本
-/// 每個氣球物件都應該附加此腳本
-/// </summary>
 public class BalloonButton : MonoBehaviour, IPointerClickHandler
 {
-	[Header("氣球設定")]
-	[Tooltip("此氣球代表的選項數值")]
-	[SerializeField] private int optionValue;
     [SerializeField] private QuizUIManager quizUI;
     private GameObject balloonObject;
+    private int optionValue;
 
-	void Awake()
+    void Awake()
 	{
 		balloonObject = gameObject;
 	}
@@ -28,6 +22,7 @@ public class BalloonButton : MonoBehaviour, IPointerClickHandler
 		balloonObject.SetActive(false);
 		// 通知 QuizUIManager 處理氣球點擊
 		quizUI.HandleBalloonClicked(this, optionValue);
+        Debug.Log($"Balloon clicked! quizUI: {quizUI}, optionValue: {optionValue}");
     }
 
 	public void SetOptionValue(int value)
