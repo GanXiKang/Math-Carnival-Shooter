@@ -18,11 +18,9 @@ public class BalloonButton : MonoBehaviour, IPointerClickHandler
 	/// <param name="eventData">點擊事件資料</param>
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		// 隱藏氣球
 		balloonObject.SetActive(false);
 		// 通知 QuizUIManager 處理氣球點擊
 		quizUI.HandleBalloonClicked(this, optionValue);
-        Debug.Log($"Balloon clicked! quizUI: {quizUI}, optionValue: {optionValue}");
     }
 
 	public void SetOptionValue(int value)
