@@ -126,27 +126,18 @@ public class GameUIManager : MonoBehaviour
 		OnGameOver?.Invoke();
 	}
 	
-	/// <summary>
-	/// 重置遊戲（重新開始）
-	/// </summary>
 	public void ResetGame()
 	{
 		currentLives = maxLives;
 		isGameOver = false;
 		
-		// 隱藏 Game Over 面板
 		if (gameOverPanel != null)
-		{
 			gameOverPanel.SetActive(false);
-		}
 		
 		// 更新生命值顯示
 		UpdateLivesDisplay();
 	}
 	
-	/// <summary>
-	/// Retry 按鈕點擊事件
-	/// </summary>
 	void OnRetryClicked()
 	{
 		ResetGame();
@@ -159,9 +150,6 @@ public class GameUIManager : MonoBehaviour
 		}
 	}
 	
-	/// <summary>
-	/// 工具方法：優先設定 TMP，否則設定 UI.Text
-	/// </summary>
 	static void SetText(TMP_Text tmp, Text ui, string value)
 	{
 		if (tmp != null) { tmp.text = value; return; }
