@@ -296,6 +296,26 @@ public class QuizUIManager : MonoBehaviour
 		if (idx < 0 || idx >= currentQuestion.options.Length) return int.MinValue;
 		return currentQuestion.options[idx];
 	}
+	
+	/// <summary>
+	/// 取得當前題目的正確答案（供 BalloonAnswer 使用）
+	/// </summary>
+	public int GetCurrentCorrectAnswer()
+	{
+		if (currentQuestion == null)
+		{
+			return int.MinValue;
+		}
+		return currentQuestion.correctAnswer;
+	}
+	
+	/// <summary>
+	/// 檢查遊戲是否已鎖定或結束
+	/// </summary>
+	public bool IsLockedOrGameOver()
+	{
+		return isLocked || gameOver || gameCompleted;
+	}
 
 	void SetButtonsInteractable(bool value)
 	{
