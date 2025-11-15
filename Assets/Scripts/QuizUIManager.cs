@@ -98,7 +98,6 @@ public class QuizUIManager : MonoBehaviour
 				var btn = balloonObjects[i].GetComponent<Button>();
 				if (btn == null) continue;
 
-				btn.onClick.RemoveAllListeners();
 				// 將選項文字設到 TMP 或 UI.Text（若存在）
 				TMP_Text tmpLabel = btn.GetComponentInChildren<TMP_Text>(true);
 				Text uiLabel = btn.GetComponentInChildren<Text>(true);
@@ -110,7 +109,7 @@ public class QuizUIManager : MonoBehaviour
 				btn.interactable = true;
 			}
 		}
-		
+
 		// 更新氣球系統（如果使用氣球）
 		if (balloonObjects != null && balloonObjects.Count > 0 && currentQuestion.options != null)
 			UpdateBalloonOptions();
