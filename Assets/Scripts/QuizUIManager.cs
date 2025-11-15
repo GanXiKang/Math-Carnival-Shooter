@@ -156,10 +156,9 @@ public class QuizUIManager : MonoBehaviour
 		bool correct = chosen == currentQuestion.correctAnswer;
 		SetText(resultTextTMP, resultTextUI, correct ? "答對了！" : "答錯了！");
 
-		bool didLevelUp = false;
 		bool didComplete = false;
 		bool isGameOver = false;
-		
+
 		if (correct)
 		{
 			correctInCurrentLevel++;
@@ -172,7 +171,6 @@ public class QuizUIManager : MonoBehaviour
 					// 晉升到下一等級
 					level = next;
 					correctInCurrentLevel = 0;
-					didLevelUp = true;
 					SetText(resultTextTMP, resultTextUI, $"Level Up！");
 				}
 				else
@@ -188,33 +186,9 @@ public class QuizUIManager : MonoBehaviour
 		// 題目切換前先停用按鈕
 		SetButtonsInteractable(false);
 		UpdateLevelProgressUI();
-		
+
 		if (isGameOver || didComplete)
-		{
-			// 遊戲結束或完成後不再出題
 			return;
-		}
-		else if (didLevelUp)
-		{
-			StartCoroutine(ShowLevelUpThenNext());
-		}
-		else
-		{
-			StartCoroutine(LoadNextQuestionAfterDelay(nextQuestionDelaySeconds));
-		}
-	}
-
-	IEnumerator LoadNextQuestionAfterDelay(float seconds)
-	{
-		yield return new WaitForSeconds(seconds);
-		GenerateAndDisplayQuestion();
-	}
-
-	IEnumerator ShowLevelUpThenNext()
-	{
-		// 訊息已在 OnOptionSelected 設定
-		yield return new WaitForSeconds(2f);
-		GenerateAndDisplayQuestion();
 	}
 
 	// 顯示等級進度，例如："JuniorHigh: 3/8"
@@ -394,17 +368,12 @@ public class QuizUIManager : MonoBehaviour
 	
 	public void NextQuestion()
 	{
-		Debug.Log("QuizUIManager: NextQuestion - 重置 UI 並生成新題目");
-		
 		// 重置所有氣球為顯示狀態
 		ResetAllBalloons();
 		
 		// 隱藏結果圖片
 		if (resultImage != null)
-		{
 			resultImage.gameObject.SetActive(false);
-			Debug.Log("QuizUIManager: 隱藏結果圖片");
-		}
 		
 		// 生成並顯示新題目
 		GenerateAndDisplayQuestion();
