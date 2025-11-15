@@ -82,27 +82,20 @@ public class QuizUIManager : MonoBehaviour
 		
 		// 確保結果圖片隱藏
 		if (resultImage != null)
-		{
 			resultImage.gameObject.SetActive(false);
-		}
 		
 		currentQuestion = QuestionGenerator.GenerateQuestion(level);
-		if (currentQuestion == null)
-		{
-			Debug.LogError("QuizUIManager: 無法生成題目！");
-			return;
-		}
 		
 		SetText(questionTextTMP, questionTextUI, currentQuestion.questionText);
 		SetText(resultTextTMP, resultTextUI, "");
 
 		// 更新按鈕系統（如果使用按鈕）
-		if (optionButtons != null && optionButtons.Length >= 4)
+		if (balloonObjects != null && balloonObjects.Count >= 4)
 		{
-			for (int i = 0; i < optionButtons.Length; i++)
+			for (int i = 0; i < balloonObjects.Count; i++)
 			{
 				int index = i; // 捕捉閉包用
-				var btn = optionButtons[i];
+				var btn = balloonObjects[i].GetComponent<Button>();
 				if (btn == null) continue;
 
 				btn.onClick.RemoveAllListeners();
@@ -130,29 +123,15 @@ public class QuizUIManager : MonoBehaviour
 	
 	void ResetAllBalloons()
 	{
-		if (balloonObjects == null)
-		{
-			Debug.LogWarning("QuizUIManager: balloonObjects 為 null！");
-			return;
-		}
-		
 		foreach (var balloon in balloonObjects)
 		{
 			if (balloon != null)
-			{
 				balloon.SetActive(true);
-			}
 		}
 	}
 	
 	void UpdateBalloonOptions()
 	{
-		if (balloonObjects == null || currentQuestion == null || currentQuestion.options == null)
-		{
-			Debug.LogWarning("QuizUIManager: UpdateBalloonOptions - 缺少必要參考！");
-			return;
-		}
-		
 		for (int i = 0; i < balloonObjects.Count && i < currentQuestion.options.Length; i++)
 		{
 			if (balloonObjects[i] == null) continue;
@@ -164,10 +143,6 @@ public class QuizUIManager : MonoBehaviour
 				// 設定選項數值
 				balloonButton.SetOptionValue(currentQuestion.options[i]);
 				balloonButton.SetQuizUI(this);
-			}
-			else
-			{
-				Debug.LogWarning($"QuizUIManager: 氣球 {i} 上沒有 BalloonButton 腳本！");
 			}
 		}
 	}
@@ -206,19 +181,6 @@ public class QuizUIManager : MonoBehaviour
 					didComplete = true;
 					gameCompleted = true;
 					SetText(resultTextTMP, resultTextUI, "Finish！");
-				}
-			}
-		}
-		else
-		{
-			// 答錯：失去一點生命值
-			if (gameUIManager != null)
-			{
-				isGameOver = gameUIManager.LoseLife();
-				if (isGameOver)
-				{
-					gameOver = true;
-					SetText(resultTextTMP, resultTextUI, "Game Over！");
 				}
 			}
 		}
@@ -298,10 +260,10 @@ public class QuizUIManager : MonoBehaviour
 
 	void SetButtonsInteractable(bool value)
 	{
-		if (optionButtons == null) return;
-		for (int i = 0; i < optionButtons.Length; i++)
+		if (balloonObjects == null) return;
+		for (int i = 0; i < balloonObjects.Count; i++)
 		{
-			if (optionButtons[i] != null) optionButtons[i].interactable = value;
+			if (balloonObjects[i].GetComponent<Button>() != null) balloonObjects[i].GetComponent<Button>().interactable = value;
 		}
 	}
 
