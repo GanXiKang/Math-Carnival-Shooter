@@ -108,15 +108,12 @@ public class QuizUIManager : MonoBehaviour
 				SetText(tmpLabel, uiLabel, optionText);
 
 				btn.interactable = true;
-				btn.onClick.AddListener(() => OnOptionSelected(index));
 			}
 		}
 		
 		// 更新氣球系統（如果使用氣球）
 		if (balloonObjects != null && balloonObjects.Count > 0 && currentQuestion.options != null)
-		{
 			UpdateBalloonOptions();
-		}
 
 		UpdateLevelProgressUI();
 	}
@@ -145,50 +142,6 @@ public class QuizUIManager : MonoBehaviour
 				balloonButton.SetQuizUI(this);
 			}
 		}
-	}
-
-	void OnOptionSelected(int optionIndex)
-	{
-		if (isLocked || gameOver || gameCompleted) return;
-		isLocked = true;
-
-		int chosen = SafeGetOption(optionIndex);
-		bool correct = chosen == currentQuestion.correctAnswer;
-		SetText(resultTextTMP, resultTextUI, correct ? "答對了！" : "答錯了！");
-
-		bool didComplete = false;
-		bool isGameOver = false;
-
-		if (correct)
-		{
-			correctInCurrentLevel++;
-			int required = GetRequiredForLevel(level);
-			if (correctInCurrentLevel >= required)
-			{
-				string next = GetNextLevel(level);
-				if (!string.IsNullOrEmpty(next))
-				{
-					// 晉升到下一等級
-					level = next;
-					correctInCurrentLevel = 0;
-					SetText(resultTextTMP, resultTextUI, $"Level Up！");
-				}
-				else
-				{
-					// 已是最後等級（PhD）且達成需求 → 完成遊戲
-					didComplete = true;
-					gameCompleted = true;
-					SetText(resultTextTMP, resultTextUI, "Finish！");
-				}
-			}
-		}
-
-		// 題目切換前先停用按鈕
-		SetButtonsInteractable(false);
-		UpdateLevelProgressUI();
-
-		if (isGameOver || didComplete)
-			return;
 	}
 
 	// 顯示等級進度，例如："JuniorHigh: 3/8"
