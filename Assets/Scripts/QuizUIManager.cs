@@ -14,7 +14,6 @@ public class QuizUIManager : MonoBehaviour
 	[SerializeField] private Text questionTextUI;
 	[SerializeField] private Text resultTextUI;
 	[SerializeField] private Text levelProgressUI;
-	[SerializeField] private Button[] optionButtons;
 	
 	[Header("氣球答案系統")]
 	[SerializeField] private List<GameObject> balloonObjects;
@@ -295,26 +294,6 @@ public class QuizUIManager : MonoBehaviour
 		if (currentQuestion == null || currentQuestion.options == null) return int.MinValue;
 		if (idx < 0 || idx >= currentQuestion.options.Length) return int.MinValue;
 		return currentQuestion.options[idx];
-	}
-	
-	/// <summary>
-	/// 取得當前題目的正確答案（供 BalloonAnswer 使用）
-	/// </summary>
-	public int GetCurrentCorrectAnswer()
-	{
-		if (currentQuestion == null)
-		{
-			return int.MinValue;
-		}
-		return currentQuestion.correctAnswer;
-	}
-	
-	/// <summary>
-	/// 檢查遊戲是否已鎖定或結束
-	/// </summary>
-	public bool IsLockedOrGameOver()
-	{
-		return isLocked || gameOver || gameCompleted;
 	}
 
 	void SetButtonsInteractable(bool value)
