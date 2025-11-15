@@ -239,12 +239,10 @@ public class QuizUIManager : MonoBehaviour
 
 		if (balloonRect != null && resultRect != null)
 		{
-			// UI 元素：使用 anchoredPosition
 			resultRect.position = balloonRect.position;
 		}
 		else if (balloon.transform != null)
 		{
-			// 非 UI 元素：使用 transform.position
 			resultImage.transform.position = balloon.transform.position;
 		}
 
