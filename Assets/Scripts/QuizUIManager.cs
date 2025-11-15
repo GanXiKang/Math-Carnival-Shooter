@@ -342,7 +342,7 @@ public class QuizUIManager : MonoBehaviour
 
 		Debug.Log($"isLocked:{isLocked}");
 		// 如果已鎖定或遊戲結束，不處理
-		if (isLocked || gameOver || gameCompleted)
+		if (gameOver || gameCompleted)
 		{
 			print("1");
 			return;
