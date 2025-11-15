@@ -177,13 +177,6 @@ public class QuizUIManager : MonoBehaviour
 		return null;
 	}
 
-	int SafeGetOption(int idx)
-	{
-		if (currentQuestion == null || currentQuestion.options == null) return int.MinValue;
-		if (idx < 0 || idx >= currentQuestion.options.Length) return int.MinValue;
-		return currentQuestion.options[idx];
-	}
-
 	void SetButtonsInteractable(bool value)
 	{
 		if (balloonObjects == null) return;
