@@ -339,14 +339,6 @@ public class QuizUIManager : MonoBehaviour
 	
 	public void HandleBalloonClicked(BalloonButton balloon, int optionValue)
 	{
-		// 如果沒有當前題目，無法判斷
-		if (currentQuestion == null)
-			return;
-
-		// 檢查氣球參考
-		if (balloon == null)
-			return;
-		
 		isLocked = true;
 		
 		// 檢查答案是否正確
