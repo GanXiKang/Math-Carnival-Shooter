@@ -219,7 +219,10 @@ public class QuizUIManager : MonoBehaviour
 	
 	public void HandleBalloonClicked(BalloonButton balloon, int optionValue)
 	{
-		isLocked = true;
+        if (isLocked || gameOver || gameCompleted)
+            return;
+
+        isLocked = true;
 		
 		// 檢查答案是否正確
 		bool isCorrect = (optionValue == currentQuestion.correctAnswer);
