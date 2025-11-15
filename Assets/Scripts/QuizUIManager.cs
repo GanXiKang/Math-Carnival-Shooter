@@ -340,15 +340,18 @@ public class QuizUIManager : MonoBehaviour
 	public void HandleBalloonClicked(BalloonButton balloon, int optionValue)
 	{
 
-		Debug.Log($"isLocked:{isLocked} gameOver:{gameOver} gameCompleted:{gameCompleted} currentQuestion:{currentQuestion} balloon :{balloon}");
+		Debug.Log($"isLocked:{isLocked}");
 		// 如果已鎖定或遊戲結束，不處理
 		if (isLocked || gameOver || gameCompleted)
+		{
+			print("1");
 			return;
-		
+		}
+
 		// 如果沒有當前題目，無法判斷
 		if (currentQuestion == null)
 			return;
-		
+
 		// 檢查氣球參考
 		if (balloon == null)
 			return;
