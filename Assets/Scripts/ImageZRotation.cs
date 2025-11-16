@@ -1,16 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ImageZRotation : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float angle = 10f;
+    public float speed = 10f;
+
+    private float startZ;
+
+    void OnEnable()
     {
-        
+        startZ = transform.localEulerAngles.z;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        float z = startZ + Mathf.Sin(Time.time * speed) * angle;
+
+        transform.localEulerAngles = new Vector3(
+            transform.localEulerAngles.x,
+            transform.localEulerAngles.y,
+            z
+        );
     }
 }
