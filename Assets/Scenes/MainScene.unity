@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 68704063}
   - component: {fileID: 68704065}
   - component: {fileID: 68704064}
+  - component: {fileID: 68704066}
   m_Layer: 5
   m_Name: Result
   m_TagString: Untagged
@@ -269,6 +270,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68704062}
   m_CullTransparentMesh: 1
+--- !u!114 &68704066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68704062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c42cfdc0f382c9749a3cf10a055ec108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 10
+  speed: 10
 --- !u!1 &94123225
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1 &158980440
 GameObject:
@@ -539,7 +553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1 &257341693
 GameObject:
@@ -675,7 +688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1 &367374566
 GameObject:
@@ -2384,11 +2396,6 @@ MonoBehaviour:
   questionTextUI: {fileID: 0}
   resultTextUI: {fileID: 0}
   levelProgressUI: {fileID: 0}
-  optionButtons:
-  - {fileID: 257341695}
-  - {fileID: 1766300382}
-  - {fileID: 158980442}
-  - {fileID: 94123227}
   balloonObjects:
   - {fileID: 257341693}
   - {fileID: 1766300380}
@@ -2924,7 +2931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d661a758724ff8742a9e2d40724b7c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionValue: 0
   quizUI: {fileID: 1443342228}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
