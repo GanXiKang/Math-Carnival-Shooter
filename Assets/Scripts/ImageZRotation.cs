@@ -7,7 +7,7 @@ public class ImageZRotation : MonoBehaviour
 
     private float startZ;
 
-    void OnEnable()
+    void Start()
     {
         startZ = transform.localEulerAngles.z;
     }
