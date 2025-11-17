@@ -117,26 +117,38 @@ public static class QuestionGenerator
 			answer = n % m;
 			q = $"{n} % {m} = ？";
 		}
-		else
-		{
-			// Fraction division: (a/b) ÷ (c/d) -> (a*d)/(b*c), ensure integer
-			int b = UnityEngine.Random.Range(2, 10);
-			int d = UnityEngine.Random.Range(2, 10);
-			int k = UnityEngine.Random.Range(1, 10);
-			int a = k * b; // a/b = k
-			int c = UnityEngine.Random.Range(1, 10) * d; // c/d = integer
-			// (a/b) ÷ (c/d) = (a*d)/(b*c) = (k)/(c/d)
-			int left = a * d;
-			int right = b * c;
-			int gcd = GCD(Mathf.Abs(left), Mathf.Abs(right));
-			left /= gcd; right /= gcd;
-			// Make right divide left by construction
-			int factor = UnityEngine.Random.Range(1, 5);
-			left = factor * right; // ensures integer result = factor
-			answer = factor;
-			q = $"({a}/{b}) ÷ ({c}/{d}) = ？";
-		}
-		return BuildQuestion(q, answer, "HighSchool");
+        else
+        {
+            // Fraction division: (a/b) ÷ (c/d) -> (a*d)/(b*c)
+            int b = UnityEngine.Random.Range(2, 10);
+            int d = UnityEngine.Random.Range(2, 10);
+            int a = UnityEngine.Random.Range(1, 10) * b; // 確保 a/b 是整數
+            int c = UnityEngine.Random.Range(1, 10) * d; // 確保 c/d 是整數
+
+            int left = a * d;
+            int right = b * c;
+
+            // 約分
+            int gcd = GCD(Mathf.Abs(left), Mathf.Abs(right));
+            left /= gcd;
+            right /= gcd;
+
+            // 如果要整數答案，確保 right 能整除 left
+            while (left % right != 0)
+            {
+                a = UnityEngine.Random.Range(1, 10) * b;
+                c = UnityEngine.Random.Range(1, 10) * d;
+                left = a * d;
+                right = b * c;
+                gcd = GCD(Mathf.Abs(left), Mathf.Abs(right));
+                left /= gcd;
+                right /= gcd;
+            }
+
+            answer = left / right;
+            q = $"({a}/{b}) ÷ ({c}/{d}) = ？";
+        }
+        return BuildQuestion(q, answer, "HighSchool");
 	}
 
 	static MathQuestion GenerateUniversity()
