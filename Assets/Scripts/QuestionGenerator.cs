@@ -56,8 +56,8 @@ public static class QuestionGenerator
 			default:
 				symbol = "÷";
 				// Ensure divisible
-				b = UnityEngine.Random.Range(1, 21);
-				answer = UnityEngine.Random.Range(1, 21);
+				b = UnityEngine.Random.Range(1, 13);
+				answer = UnityEngine.Random.Range(1, 16);
 				a = answer * b;
 				break;
 		}
