@@ -53,10 +53,6 @@ public class GameUIManager : MonoBehaviour
 		UpdateLivesDisplay();
 	}
 	
-	/// <summary>
-	/// 失去一點生命值
-	/// </summary>
-	/// <returns>如果遊戲結束返回 true，否則返回 false</returns>
 	public bool LoseLife()
 	{
 		if (isGameOver) return true;
@@ -76,9 +72,6 @@ public class GameUIManager : MonoBehaviour
 		return false;
 	}
 	
-	/// <summary>
-	/// 更新生命值顯示（心形圖示）
-	/// </summary>
 	void UpdateLivesDisplay()
 	{
 		if (heartImages == null || heartImages.Length == 0) return;
@@ -103,10 +96,7 @@ public class GameUIManager : MonoBehaviour
 			}
 		}
 	}
-	
-	/// <summary>
-	/// 觸發 Game Over
-	/// </summary>
+
 	void TriggerGameOver()
 	{
 		if (isGameOver) return;
