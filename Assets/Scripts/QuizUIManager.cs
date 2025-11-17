@@ -175,7 +175,8 @@ public class QuizUIManager : MonoBehaviour
 		{
 			if (levelOrder[i] == current)
 			{
-				if (i + 1 < levelOrder.Length) return levelOrder[i + 1];
+				if (i + 1 < levelOrder.Length) 
+					return levelOrder[i + 1];
 				return null;
 			}
 		}
@@ -187,7 +188,8 @@ public class QuizUIManager : MonoBehaviour
 		if (balloonObjects == null) return;
 		for (int i = 0; i < balloonObjects.Count; i++)
 		{
-			if (balloonObjects[i].GetComponent<Button>() != null) balloonObjects[i].GetComponent<Button>().interactable = value;
+			if (balloonObjects[i].GetComponent<Button>() != null) 
+				balloonObjects[i].GetComponent<Button>().interactable = value;
 		}
 	}
 
