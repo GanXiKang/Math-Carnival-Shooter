@@ -22,8 +22,13 @@ public class QuizUIManager : MonoBehaviour
 	[SerializeField] private Sprite correctSprite;
 	[SerializeField] private Sprite wrongSprite;
 
-	// 生命值系統管理器
-	[SerializeField] private GameUIManager gameUIManager;
+    [Header("升級星星設定")]
+    [SerializeField] private GameObject starPrefab;
+    [SerializeField] private Transform canvasTransform;
+    [SerializeField] private Transform[] levelStarTransforms;
+
+    // 生命值系統管理器
+    [SerializeField] private GameUIManager gameUIManager;
 	// 難度等級字串（傳入 QuestionGenerator，例如 "Elementary"、"JuniorHigh"...）
 	[SerializeField] private string level = "Elementary";
 	// 作答後切換到下一題的延遲時間
