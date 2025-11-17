@@ -284,22 +284,18 @@ public class QuizUIManager : MonoBehaviour
 					didLevelUp = true;
 					SetText(resultTextTMP, resultTextUI, $"Level Up！");
 
-                    if (starPrefab != null && levelStarTransforms != null && canvasTransform != null)
-                    {
-                        // 在答對的氣球位置生成星星
-                        GameObject star = Instantiate(starPrefab, balloon.transform.position, Quaternion.identity, canvasTransform);
-                        star.transform.localScale = new Vector3(2f, 2f, 1f);
+					// 在答對的氣球位置生成星星
+					GameObject star = Instantiate(starPrefab, balloon.transform.position, Quaternion.identity, canvasTransform);
+					star.transform.localScale = new Vector3(2f, 2f, 1f);
 
-                        // 設定星星飛向對應等級位置
-                        int levelIndex = Mathf.Clamp(System.Array.IndexOf(levelOrder, level), 0, levelStarTransforms.Length - 1);
-                        Transform targetTransform = levelStarTransforms[levelIndex];
+					// 設定星星飛向對應等級位置
+					int levelIndex = Mathf.Clamp(System.Array.IndexOf(levelOrder, level), 0, levelStarTransforms.Length - 1);
+					Transform targetTransform = levelStarTransforms[levelIndex];
 
-                        // 播放動畫
-                        StarUpgradeAnimation starAnim = star.GetComponent<StarUpgradeAnimation>();
-                        if (starAnim != null)
-                            starAnim.PlayUpgradeAnimation(targetTransform);
-                    }
-                }
+					// 播放動畫
+					StarUpgradeAnimation starAnim = star.GetComponent<StarUpgradeAnimation>();
+					starAnim.PlayUpgradeAnimation(targetTransform);
+				}
 				else
 				{
 					//完成遊戲
