@@ -1,10 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// 星星升級動畫控制
-/// 掛載於 StarPrefab 預製物上
-/// </summary>
 public class StarUpgradeAnimation : MonoBehaviour
 {
     [Header("動畫設定")]
@@ -20,10 +16,6 @@ public class StarUpgradeAnimation : MonoBehaviour
     private Vector3 startScale;
     private Transform targetTransform;
 
-    /// <summary>
-    /// 初始化星星動畫
-    /// </summary>
-    /// <param name="target">星星最終停放的等級位置 Transform</param>
     public void PlayUpgradeAnimation(Transform target)
     {
         targetTransform = target;
