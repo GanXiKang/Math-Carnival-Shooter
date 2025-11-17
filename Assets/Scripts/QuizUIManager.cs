@@ -207,9 +207,16 @@ public class QuizUIManager : MonoBehaviour
 		correctInCurrentLevel = 0;
 		level = "Elementary";
 		isLocked = false;
-		
-		// 清除結果文字
-		SetText(resultTextTMP, resultTextUI, "");
+
+        // 刪除場景中所有升級星星
+        StarUpgradeAnimation[] existingStars = FindObjectsOfType<StarUpgradeAnimation>();
+        foreach (var star in existingStars)
+        {
+            Destroy(star.gameObject);
+        }
+
+        // 清除結果文字
+        SetText(resultTextTMP, resultTextUI, "");
 		
 		// 重置所有氣球
 		ResetAllBalloons();
