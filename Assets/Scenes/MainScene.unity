@@ -2592,7 +2592,7 @@ MonoBehaviour:
   correctSprite: {fileID: 21300000, guid: 4adea85464db7f3418bba1091d5c7acc, type: 3}
   wrongSprite: {fileID: 21300000, guid: c3fa26d03cdc0cc4cb51621e18bdc340, type: 3}
   starPrefab: {fileID: 1599999148126693579, guid: c8ec23e8795f9e14eafa1e6cc05094ac, type: 3}
-  canvasTransform: {fileID: 605445655}
+  canvasTransform: {fileID: 1904516435}
   levelStarTransforms:
   - {fileID: 0}
   - {fileID: 1601421885}
@@ -2656,7 +2656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.25882354}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
