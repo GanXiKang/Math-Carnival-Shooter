@@ -288,7 +288,17 @@ public class QuizUIManager : MonoBehaviour
 					//完成遊戲
 					didComplete = true;
 					gameCompleted = true;
-				}
+
+                    if (gameUIManager != null)
+                    {
+                        gameUIManager.ShowResultAchievement(
+                            level: System.Array.IndexOf(levelOrder, level) + 1, // 將字串等級轉成數字
+                            allCorrect: true,
+                            lifeDepleted: false,
+                            anyCorrect: true
+                        );
+                    }
+                }
 			}
 		}
 		else
@@ -297,9 +307,19 @@ public class QuizUIManager : MonoBehaviour
 			if (gameUIManager != null)
 			{
 				isGameOver = gameUIManager.LoseLife();
-				if (isGameOver)
-					gameOver = true;
-			}
+                if (isGameOver)
+                {
+                    gameOver = true;
+
+                    // 呼叫 ShowResultAchievement 顯示結束畫面
+                    gameUIManager.ShowResultAchievement(
+                        level: System.Array.IndexOf(levelOrder, level) + 1, // 將 level 轉成數字等級
+                        allCorrect: false,
+                        lifeDepleted: true,
+                        anyCorrect: correctInCurrentLevel > 0
+                    );
+                }
+            }
 		}
 		
 		// 更新進度顯示
