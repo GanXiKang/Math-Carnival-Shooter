@@ -149,7 +149,7 @@ public class QuizUIManager : MonoBehaviour
 	void UpdateLevelProgressUI()
 	{
 		int required = GetRequiredForLevel(level);
-		string progressText = $"{level}: {correctInCurrentLevel}/{required}";
+		string progressText = $"{correctInCurrentLevel}/{required}";
 		SetText(levelProgressTMP, levelProgressUI, progressText);
 	}
 
