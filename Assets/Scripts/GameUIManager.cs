@@ -12,8 +12,6 @@ public class GameUIManager : MonoBehaviour
 	
 	[Header("Game Over 面板")]
 	[SerializeField] private GameObject gameOverPanel; // Game Over 面板 GameObject
-	[SerializeField] private TMP_Text gameOverTitleTMP; // Game Over 標題（TMP）
-	[SerializeField] private Text gameOverTitleUI; // Game Over 標題（UI Text）
 	[SerializeField] private Button retryButton; // 重新開始按鈕
 	
 	[Header("設定")]
@@ -102,16 +100,7 @@ public class GameUIManager : MonoBehaviour
 		if (isGameOver) return;
 		
 		isGameOver = true;
-		
-		// 顯示 Game Over 面板
-		if (gameOverPanel != null)
-		{
-			gameOverPanel.SetActive(true);
-		}
-		
-		// 設定 Game Over 標題文字
-		SetText(gameOverTitleTMP, gameOverTitleUI, "Game Over");
-		
+	    gameOverPanel.SetActive(true);
 		// 觸發事件
 		OnGameOver?.Invoke();
 	}
@@ -138,11 +127,5 @@ public class GameUIManager : MonoBehaviour
 		{
 			quizManager.RestartQuiz();
 		}
-	}
-	
-	static void SetText(TMP_Text tmp, Text ui, string value)
-	{
-		if (tmp != null) { tmp.text = value; return; }
-		if (ui != null) { ui.text = value; }
 	}
 }
