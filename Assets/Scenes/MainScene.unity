@@ -2622,12 +2622,12 @@ MonoBehaviour:
   achievementImage: {fileID: 1674884203}
   achievementSprite:
   - {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -1955448553306655712, guid: 2155f658556a000468e660dfca1b2082, type: 3}
+  - {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
+  - {fileID: -1955448553306655712, guid: 2155f658556a000468e660dfca1b2082, type: 3}
+  - {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
+  - {fileID: -1955448553306655712, guid: 2155f658556a000468e660dfca1b2082, type: 3}
+  - {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
   maxLives: 3
   heartFull: {fileID: -902086654454736923, guid: 19ce8fbd8090a3c47bb34d4e55c17e9d, type: 3}
 --- !u!1 &1510695259
@@ -2975,7 +2975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
