@@ -8,11 +8,9 @@ public class QuizUIManager : MonoBehaviour
 {
 	// 優先使用 TMP 文字元件
 	[SerializeField] private TMP_Text questionTextTMP;
-	[SerializeField] private TMP_Text resultTextTMP;
 	[SerializeField] private TMP_Text levelProgressTMP;
 	// 備用：使用內建 UI Text（若未使用或無法使用 TMP）
 	[SerializeField] private Text questionTextUI;
-	[SerializeField] private Text resultTextUI;
 	[SerializeField] private Text levelProgressUI;
 	
 	[Header("氣球答案系統")]
@@ -29,7 +27,7 @@ public class QuizUIManager : MonoBehaviour
 
     // 生命值系統管理器
     [SerializeField] private GameUIManager gameUIManager;
-	// 難度等級字串（傳入 QuestionGenerator，例如 "Elementary"、"JuniorHigh"...）
+	// 難度等級字串
 	[SerializeField] private string level = "Elementary";
 	// 作答後切換到下一題的延遲時間
 	[SerializeField] private float nextQuestionDelaySeconds = 1.5f;
@@ -92,7 +90,6 @@ public class QuizUIManager : MonoBehaviour
 		currentQuestion = QuestionGenerator.GenerateQuestion(level);
 		
 		SetText(questionTextTMP, questionTextUI, currentQuestion.questionText);
-		SetText(resultTextTMP, resultTextUI, "");
 
 		// 更新按鈕系統（如果使用按鈕）
 		if (balloonObjects != null && balloonObjects.Count >= 4)
@@ -148,7 +145,7 @@ public class QuizUIManager : MonoBehaviour
 		}
 	}
 
-	// 顯示等級進度，例如："JuniorHigh: 3/8"
+	// 顯示等級進度
 	void UpdateLevelProgressUI()
 	{
 		int required = GetRequiredForLevel(level);
@@ -214,19 +211,13 @@ public class QuizUIManager : MonoBehaviour
         {
             Destroy(star.gameObject);
         }
-
-        // 清除結果文字
-        SetText(resultTextTMP, resultTextUI, "");
 		
 		// 重置所有氣球
 		ResetAllBalloons();
-		
+
 		// 隱藏結果圖片
-		if (resultImage != null)
-		{
-			resultImage.gameObject.SetActive(false);
-		}
-		
+		resultImage.gameObject.SetActive(false);
+
 		// 重新生成題目
 		GenerateAndDisplayQuestion();
 	}
@@ -259,9 +250,6 @@ public class QuizUIManager : MonoBehaviour
 		// 確保結果圖片可見
 		resultImage.gameObject.SetActive(true);
 		resultImage.enabled = true;
-
-		// 更新文字回饋
-		SetText(resultTextTMP, resultTextUI, isCorrect ? "答對了！" : "答錯了！");
 		
 		// 處理答對或答錯的邏輯
 		bool didLevelUp = false;
@@ -282,7 +270,6 @@ public class QuizUIManager : MonoBehaviour
 					level = next;
 					correctInCurrentLevel = 0;
 					didLevelUp = true;
-					SetText(resultTextTMP, resultTextUI, $"Level Up！");
 
 					// 在答對的氣球位置生成星星
 					GameObject star = Instantiate(starPrefab, balloon.transform.position, Quaternion.identity, canvasTransform);
@@ -301,7 +288,6 @@ public class QuizUIManager : MonoBehaviour
 					//完成遊戲
 					didComplete = true;
 					gameCompleted = true;
-					SetText(resultTextTMP, resultTextUI, "Finish！");
 				}
 			}
 		}
@@ -312,10 +298,7 @@ public class QuizUIManager : MonoBehaviour
 			{
 				isGameOver = gameUIManager.LoseLife();
 				if (isGameOver)
-				{
 					gameOver = true;
-					SetText(resultTextTMP, resultTextUI, "Game Over！");
-				}
 			}
 		}
 		
