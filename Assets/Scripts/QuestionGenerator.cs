@@ -163,20 +163,32 @@ public static class QuestionGenerator
 		return BuildQuestion(text, answer, "University");
 	}
 
-	static MathQuestion GeneratePhD()
+    static int lastPhDIndex = -1;
+    static MathQuestion GeneratePhD()
 	{
-		// Riddle pool with numeric answers
-		var riddles = new List<(string, int)>
-		{
-			("若 f(n) = n^2 - n + 1，求 f(5) 的值", 21),
+        var riddles = new List<(string, int)>
+	    {
+		    ("若 f(n) = n^2 - n + 1，求 f(5) 的值", 21),
 		    ("從集合 {1,2,3,4,5} 中選出 3 個不同數字，排列數有幾種？", 60),
 		    ("費波那契數列 F(n)=F(n-1)+F(n-2)，F(1)=1,F(2)=1，求 F(6)", 8),
 		    ("若一個三位數 abc 的數字和是 9，且 a<b<c，符合條件的數字有幾個？", 3),
-            ("已知等差數列前 4 項為 2,5,8,11，求第 10 項", 29)
-		};
-		var pick = riddles[UnityEngine.Random.Range(0, riddles.Count)];
-		return BuildQuestion(pick.Item1, pick.Item2, "PhD");
-	}
+		    ("已知等差數列前 4 項為 2,5,8,11，求第 10 項", 29)
+	    };
+
+		int index;
+
+        // 保證不會和上一題重複
+        do
+        {
+            index = UnityEngine.Random.Range(0, riddles.Count);
+        }
+        while (index == lastPhDIndex);
+
+        lastPhDIndex = index;
+
+        var pick = riddles[index];
+        return BuildQuestion(pick.Item1, pick.Item2, "PhD");
+    }
 
 	static MathQuestion BuildQuestion(string text, int correct, string level)
 	{
