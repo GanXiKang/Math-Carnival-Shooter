@@ -2618,9 +2618,16 @@ MonoBehaviour:
   - {fileID: 627588960}
   - {fileID: 571881465}
   gameOverPanel: {fileID: 1510695259}
-  gameOverTitleTMP: {fileID: 0}
-  gameOverTitleUI: {fileID: 0}
   retryButton: {fileID: 367374568}
+  achievementImage: {fileID: 1674884203}
+  achievementSprite:
+  - {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   maxLives: 3
   heartFull: {fileID: -902086654454736923, guid: 19ce8fbd8090a3c47bb34d4e55c17e9d, type: 3}
 --- !u!1 &1510695259
