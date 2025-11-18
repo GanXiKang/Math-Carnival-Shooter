@@ -11,10 +11,12 @@ public class GameUIManager : MonoBehaviour
 	[SerializeField] private Image[] heartImages; // 3 個心形圖示（按順序：左到右或上到下）
 	
 	[Header("Game Over 面板")]
-	[SerializeField] private GameObject gameOverPanel; // Game Over 面板 GameObject
-	[SerializeField] private Button retryButton; // 重新開始按鈕
-	
-	[Header("設定")]
+	[SerializeField] private GameObject gameOverPanel;
+	[SerializeField] private Button retryButton;
+    [SerializeField] private Image achievementImage;
+    [SerializeField] private Sprite[] achievementSprite;
+
+    [Header("設定")]
 	[SerializeField] private int maxLives = 3; // 最大生命值
 	[SerializeField] private Sprite heartFull; // 完整的心形圖示
 	
