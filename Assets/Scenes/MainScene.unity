@@ -2855,6 +2855,8 @@ MonoBehaviour:
   - {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
   - {fileID: -1955448553306655712, guid: 2155f658556a000468e660dfca1b2082, type: 3}
   - {fileID: 1305047089038709851, guid: be9399b524213e74ea0668eaffe88606, type: 3}
+  menuUI: {fileID: 845350919}
+  playUI: {fileID: 449374257}
   maxLives: 3
   heartFull: {fileID: -902086654454736923, guid: 19ce8fbd8090a3c47bb34d4e55c17e9d, type: 3}
 --- !u!1 &1510695259
@@ -3495,7 +3497,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1905733321}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1443342229}
+        m_TargetAssemblyTypeName: GameUIManager, Assembly-CSharp
+        m_MethodName: OnStartButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1905733321
 MonoBehaviour:
   m_ObjectHideFlags: 0
