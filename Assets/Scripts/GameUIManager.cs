@@ -16,6 +16,10 @@ public class GameUIManager : MonoBehaviour
 	[SerializeField] private Image achievementImage;
 	[SerializeField] private Sprite[] achievementSprite;
 
+	[Header("UI Panels")]
+	[SerializeField] private GameObject menuUI;
+	[SerializeField] private GameObject playUI;
+
 	[Header("設定")]
 	[SerializeField] private int maxLives = 3; // 最大生命值
 	[SerializeField] private Sprite heartFull; // 完整的心形圖示
@@ -36,6 +40,8 @@ public class GameUIManager : MonoBehaviour
 		currentLives = maxLives;
 		isGameOver = false;
 		gameOverPanel.SetActive(false);
+		menuUI.SetActive(true);
+		playUI.SetActive(false);
 
 		// 設定 Retry 按鈕
 		retryButton.onClick.RemoveAllListeners();
@@ -122,31 +128,37 @@ public class GameUIManager : MonoBehaviour
 		}
 	}
 
-    public void ShowResultAchievement(int level, bool allCorrect, bool lifeDepleted, bool anyCorrect)
-    {
-        int index = 0;
+	public void ShowResultAchievement(int level, bool allCorrect, bool lifeDepleted, bool anyCorrect)
+	{
+		int index = 0;
 
 		switch (level)
 		{
 			case 1:
-                if (lifeDepleted)
-                    index = anyCorrect ? 1 : 0; 
-                break;
+				if (lifeDepleted)
+					index = anyCorrect ? 1 : 0;
+				break;
 
 			case 2:
 			case 3:
 			case 4:
-            case 5:
-                if (allCorrect)
-                    index = 6;
-                else if (lifeDepleted)
-                    index = level;
-                break;
+			case 5:
+				if (allCorrect)
+					index = 6;
+				else if (lifeDepleted)
+					index = level;
+				break;
 		}
 
-        if (index >= 0 && index < achievementSprite.Length)
-            achievementImage.sprite = achievementSprite[index];
+		if (index >= 0 && index < achievementSprite.Length)
+			achievementImage.sprite = achievementSprite[index];
 
-        gameOverPanel.SetActive(true);
-    }
+		gameOverPanel.SetActive(true);
+	}
+
+	public void OnStartButtonPressed()
+	{
+		menuUI.SetActive(false);
+		playUI.SetActive(true);
+	}
 }
