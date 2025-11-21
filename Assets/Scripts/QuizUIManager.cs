@@ -69,9 +69,10 @@ public class QuizUIManager : MonoBehaviour
 	void GenerateAndDisplayQuestion()
 	{
 		isLocked = false;
-		
-		// 檢查遊戲是否結束（生命值歸零或完成所有等級）
-		if (gameOver || gameCompleted)
+        AudioManager.Instance.PlaySFX("Quiz");
+
+        // 檢查遊戲是否結束（生命值歸零或完成所有等級）
+        if (gameOver || gameCompleted)
 		{
 			// 遊戲結束後不再生成新題目，保持按鈕停用
 			SetText(questionTextTMP, questionTextUI, "");
@@ -225,12 +226,13 @@ public class QuizUIManager : MonoBehaviour
 	public void HandleBalloonClicked(BalloonButton balloon, int optionValue)
 	{
         if (isLocked || gameOver || gameCompleted)
-            return;
+			return;
 
-        isLocked = true;
-		
-		// 檢查答案是否正確
-		bool isCorrect = (optionValue == currentQuestion.correctAnswer);
+		isLocked = true;
+        AudioManager.Instance.PlaySFX("Balloon");
+
+        // 檢查答案是否正確
+        bool isCorrect = (optionValue == currentQuestion.correctAnswer);
 
 		// 設定結果圖片位置為氣球位置
 		// 使用 RectTransform 確保 UI 元素正確定位
@@ -258,7 +260,8 @@ public class QuizUIManager : MonoBehaviour
 		
 		if (isCorrect)
 		{
-			correctInCurrentLevel++;
+            AudioManager.Instance.PlaySFX("Correct");
+            correctInCurrentLevel++;
 			int required = GetRequiredForLevel(level);
 			
 			if (correctInCurrentLevel >= required)
@@ -288,6 +291,7 @@ public class QuizUIManager : MonoBehaviour
 					//完成遊戲
 					didComplete = true;
 					gameCompleted = true;
+                    AudioManager.Instance.PlaySFX("Finish");
 
                     if (gameUIManager != null)
                     {
@@ -306,10 +310,12 @@ public class QuizUIManager : MonoBehaviour
 			// 答錯：失去一點生命值
 			if (gameUIManager != null)
 			{
-				isGameOver = gameUIManager.LoseLife();
+                AudioManager.Instance.PlaySFX("Wrong");
+                isGameOver = gameUIManager.LoseLife();
                 if (isGameOver)
-                {
-                    gameOver = true;
+				{
+					gameOver = true;
+                    AudioManager.Instance.PlaySFX("Lose");
 
                     // 呼叫 ShowResultAchievement 顯示結束畫面
                     gameUIManager.ShowResultAchievement(
