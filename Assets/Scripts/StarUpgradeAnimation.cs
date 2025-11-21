@@ -18,6 +18,7 @@ public class StarUpgradeAnimation : MonoBehaviour
 
     public void PlayUpgradeAnimation(Transform target)
     {
+        AudioManager.Instance.PlaySFX("Stars");
         targetTransform = target;
         startScale = transform.localScale;
 
