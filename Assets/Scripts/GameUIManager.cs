@@ -106,7 +106,8 @@ public class GameUIManager : MonoBehaviour
 
 	public void ResetGame()
 	{
-		currentLives = maxLives;
+        AudioManager.Instance.PlaySFX("Button");
+        currentLives = maxLives;
 		isGameOver = false;
 
 		if (gameOverPanel != null)
@@ -158,7 +159,8 @@ public class GameUIManager : MonoBehaviour
 
 	public void OnStartButtonPressed()
 	{
-		menuUI.SetActive(false);
+        AudioManager.Instance.PlaySFX("Button");
+        menuUI.SetActive(false);
 		playUI.SetActive(true);
 	}
 }
