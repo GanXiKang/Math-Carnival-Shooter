@@ -2484,6 +2484,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67dab7b7b7ca4024bb40d994953f9a1e, type: 3}
   - {fileID: 8300000, guid: 39a4ae30c43b9b442a9047b9019b1be4, type: 3}
   - {fileID: 8300000, guid: 546f4fdd9776f35418a2dc0c0fb3aab2, type: 3}
+  - {fileID: 8300000, guid: d1ef48b15cf17a04893ed92a27819610, type: 3}
   - {fileID: 8300000, guid: f6cb569d24c9c4140a67864401e45f90, type: 3}
   - {fileID: 8300000, guid: 7a648ccdfe072814abfe38e137880a9e, type: 3}
   - {fileID: 8300000, guid: 369269bfb1a89d041b425f3d5b973f39, type: 3}
@@ -2847,7 +2848,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3228,7 +3229,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: f86f7f4e4843f344ab1b8a551a303e94, type: 3}
   m_Resource: {fileID: 8300000, guid: f86f7f4e4843f344ab1b8a551a303e94, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
