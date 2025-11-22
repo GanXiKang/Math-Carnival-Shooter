@@ -69,7 +69,6 @@ public class QuizUIManager : MonoBehaviour
 	void GenerateAndDisplayQuestion()
 	{
 		isLocked = false;
-        AudioManager.Instance.PlaySFX("Quiz");
 
         // 檢查遊戲是否結束（生命值歸零或完成所有等級）
         if (gameOver || gameCompleted)
@@ -351,10 +350,9 @@ public class QuizUIManager : MonoBehaviour
 	{
 		// 重置所有氣球為顯示狀態
 		ResetAllBalloons();
-		
-		// 隱藏結果圖片
-		if (resultImage != null)
-			resultImage.gameObject.SetActive(false);
+
+        AudioManager.Instance.PlaySFX("Quiz");
+		resultImage.gameObject.SetActive(false);
 		
 		// 生成並顯示新題目
 		GenerateAndDisplayQuestion();
