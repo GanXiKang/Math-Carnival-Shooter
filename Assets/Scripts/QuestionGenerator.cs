@@ -163,30 +163,35 @@ public static class QuestionGenerator
 		return BuildQuestion(text, answer, "University");
 	}
 
-    static int lastPhDIndex = -1;
+    static List<(string, int)> phdPool = new List<(string, int)>
+    {
+        ("f(n)=n^2-n+1，f(5)=?", 21),
+        ("5P3 = ?", 60),
+        ("F(1)=1,F(2)=1,F(n)=F(n-1)+F(n-2)，F(6)=?", 8),
+        ("a<b<c, a+b+c=9 → count=?", 3),
+        ("a_1=2,d=3 → a_10=?", 29)
+    };
+    static void ResetPhDPool()
+    {
+        phdPool = new List<(string, int)>
+	    {
+		    ("f(n)=n^2-n+1，f(5)=?", 21),
+		    ("5P3 = ?", 60),
+		    ("F(1)=1,F(2)=1,F(n)=F(n-1)+F(n-2)，F(6)=?", 8),
+		    ("a<b<c, a+b+c=9 → count=?", 3),
+		    ("a_1=2,d=3 → a_10=?", 29)
+	    };
+	}
     static MathQuestion GeneratePhD()
 	{
-        var riddles = new List<(string, int)>
-	    {
-		    ("若 f(n) = n^2 - n + 1，求 f(5) 的值", 21),
-		    ("從集合 {1,2,3,4,5} 中選出 3 個不同數字，排列數有幾種？", 60),
-		    ("費波那契數列 F(n)=F(n-1)+F(n-2)，F(1)=1,F(2)=1，求 F(6)", 8),
-		    ("若一個三位數 abc 的數字和是 9，且 a<b<c，符合條件的數字有幾個？", 3),
-		    ("已知等差數列前 4 項為 2,5,8,11，求第 10 項", 29)
-	    };
+        if (phdPool.Count == 0)
+            ResetPhDPool(); 
 
-		int index;
+        int index = UnityEngine.Random.Range(0, phdPool.Count);
+        var pick = phdPool[index];
 
-        // 保證不會和上一題重複
-        do
-        {
-            index = UnityEngine.Random.Range(0, riddles.Count);
-        }
-        while (index == lastPhDIndex);
+        phdPool.RemoveAt(index);
 
-        lastPhDIndex = index;
-
-        var pick = riddles[index];
         return BuildQuestion(pick.Item1, pick.Item2, "PhD");
     }
 
