@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1 + 1 = '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e7e6dd20c4b7bc418df37c1db1307dd, type: 2}
   m_sharedMaterial: {fileID: -3891389807160805686, guid: 6e7e6dd20c4b7bc418df37c1db1307dd, type: 2}
