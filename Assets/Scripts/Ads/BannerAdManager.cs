@@ -30,14 +30,14 @@ public class BannerAdManager : MonoBehaviour
 
     private void RequestBanner()
     {
-        // 設定橫幅尺寸（建議使用 SmartBanner）
+        // 設定橫幅尺寸（SmartBanner 在新版 SDK 已經支援）
         AdSize adSize = AdSize.SmartBanner;
 
         // 建立橫幅物件
         bannerView = new BannerView(adUnitId, adSize, AdPosition.Bottom);
 
-        // 建立廣告請求
-        AdRequest request = new AdRequest.Builder().Build();
+        // 建立廣告請求 (新版 SDK 不需要 Builder)
+        AdRequest request = new AdRequest();
 
         // 載入廣告
         bannerView.LoadAd(request);
@@ -45,7 +45,7 @@ public class BannerAdManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // 釋放廣告物件
+        // 釋放橫幅物件
         if (bannerView != null)
         {
             bannerView.Destroy();
