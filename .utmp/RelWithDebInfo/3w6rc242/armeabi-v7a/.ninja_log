@@ -1,0 +1,12 @@
+# ninja log v5
+45	175	7858875219989891	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	1b9069f7733ffc72
+177	333	7858875221610421	D:/Unity/gitHub/Math-Carnival-Shooter/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3w6rc242/obj/armeabi-v7a/libswappywrapper.so	58583890ebde2b7c
+22	651	7858875224747652	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	d26abd62ad1eaa73
+16	653	7858875224727502	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	4ecd5771d3cdcd91
+1	666	7858875224909116	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	600872fbd6662981
+39	711	7858875225395441	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	bd39aa97d2f6b554
+33	747	7858875225758375	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	2e5b706f806dcbbb
+7	768	7858875225983405	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	24c2e12f6acb5dff
+27	882	7858875227071000	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	7cc80e90aa1f293
+11	955	7858875227814012	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	2546c3031988409f
+955	1050	7858875228801793	D:/Unity/gitHub/Math-Carnival-Shooter/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3w6rc242/obj/armeabi-v7a/libgame.so	95df77d533172fb6
