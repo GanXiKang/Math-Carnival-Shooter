@@ -13,7 +13,6 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-using GooglePlayServices;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
@@ -118,7 +117,7 @@ namespace GoogleMobileAds.Editor
             #endif
 
             Debug.Log("Resolving Android Gradle dependencies.");
-            PlayServicesResolver.ResolveSync(true);
+            //PlayServicesResolver.ResolveSync(true);
             Debug.Log("Android Build Pre-Processor finished.");
         }
 
@@ -170,7 +169,7 @@ namespace GoogleMobileAds.Editor
 
             // If target does not exist, create it from source.
             var unityGradleTemplateDirectory = Path.Combine(
-                PlayServicesResolver.AndroidPlaybackEngineDirectory,
+                //PlayServicesResolver.AndroidPlaybackEngineDirectory,
                 "Tools",
                 "GradleTemplates");
             string sourceFileName = Path.Combine(unityGradleTemplateDirectory, fileName);
