@@ -169,18 +169,18 @@ public static class QuestionGenerator
         ("5P3 = ?", 60),
         ("F(n)=F(n-1)+F(n-2)\nF(1)=1, F(2)=1F(6)=?", 8),
         ("a<b<c, a+b+c=9\ncount=?", 3),
-        ("2,5,8,...,a_10=?", 29)
+        ("2, 5, 8, … , a₁₀", 29)
     };
     static void ResetPhDPool()
     {
         phdPool = new List<(string, int)>
 	    {
-		    ("f(n)=n^2-n+1，f(5)=?", 21),
-		    ("5P3 = ?", 60),
-		    ("F(1)=1,F(2)=1,F(n)=F(n-1)+F(n-2)，F(6)=?", 8),
-		    ("a<b<c, a+b+c=9 → count=?", 3),
-		    ("a_1=2,d=3 → a_10=?", 29)
-	    };
+            ("f(n)=n^2-n+1\nf(5)=?", 21),
+            ("5P3 = ?", 60),
+            ("F(n)=F(n-1)+F(n-2)\nF(1)=1, F(2)=1F(6)=?", 8),
+            ("a<b<c, a+b+c=9\ncount=?", 3),
+            ("2, 5, 8, … , a₁₀", 29)
+        };
 	}
     static MathQuestion GeneratePhD()
 	{
