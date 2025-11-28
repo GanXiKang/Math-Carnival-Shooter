@@ -169,7 +169,7 @@ public static class QuestionGenerator
         ("5P3 = ?", 60),
         ("F(n)=F(n-1)+F(n-2)\nF(1)=1, F(2)=1F(6)=?", 8),
         ("a<b<c, a+b+c=9\ncount=?", 3),
-        ("2, 5, 8, … , a₁₀", 29)
+        ("2, 5, 8, … , a10", 29)
     };
     static void ResetPhDPool()
     {
@@ -179,7 +179,7 @@ public static class QuestionGenerator
             ("5P3 = ?", 60),
             ("F(n)=F(n-1)+F(n-2)\nF(1)=1, F(2)=1F(6)=?", 8),
             ("a<b<c, a+b+c=9\ncount=?", 3),
-            ("2, 5, 8, … , a₁₀", 29)
+            ("2, 5, 8, … , a10", 29)
         };
 	}
     static MathQuestion GeneratePhD()
