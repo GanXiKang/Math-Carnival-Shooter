@@ -323,7 +323,7 @@ MonoBehaviour:
     - line: '|   - m_BuildTarget: '
     - line: '|     m_Icons:'
     - line: '|     - serializedVersion: 2'
-    - line: '|       m_Icon: {fileID: 2800000, guid: bfa52604488cc78439f82de4da90ca9f,
+    - line: '|       m_Icon: {fileID: 2800000, guid: 23b86721f019463448ad7fcbf9171f23,
         type: 3}'
     - line: '|       m_Width: 128'
     - line: '|       m_Height: 128'
@@ -361,11 +361,7 @@ MonoBehaviour:
     - line: '|       m_Height: 36'
     - line: '|       m_Kind: 1'
     - line: '|       m_SubKind: '
-    - line: '|     - m_Textures:'
-    - line: '|       - {fileID: 2800000, guid: af8e10c195c3471469e20fff62d5b6a1,
-        type: 3}'
-    - line: '|       - {fileID: 2800000, guid: bfa52604488cc78439f82de4da90ca9f,
-        type: 3}'
+    - line: '|     - m_Textures: []'
     - line: '|       m_Width: 432'
     - line: '|       m_Height: 432'
     - line: '|       m_Kind: 2'
@@ -396,7 +392,7 @@ MonoBehaviour:
     - line: '|       m_Kind: 2'
     - line: '|       m_SubKind: '
     - line: '|     - m_Textures:'
-    - line: '|       - {fileID: 2800000, guid: bfa52604488cc78439f82de4da90ca9f,
+    - line: '|       - {fileID: 2800000, guid: 23b86721f019463448ad7fcbf9171f23,
         type: 3}'
     - line: '|       m_Width: 192'
     - line: '|       m_Height: 192'
