@@ -1,5 +1,5 @@
 # ninja log v5
-2	1096	7863553582296167	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	e474771a523c5871
-1097	1551	7863553586829202	D:/Unity/gitHub/Math-Carnival-Shooter/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/j1h5c6u3/obj/arm64-v8a/libswappywrapper.so	620d11baca3ea91a
 1	663	7864693234242300	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	e474771a523c5871
 664	886	7864693236518247	D:/Unity/gitHub/Math-Carnival-Shooter/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/j1h5c6u3/obj/arm64-v8a/libswappywrapper.so	620d11baca3ea91a
+4	592	7866195872929893	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	e474771a523c5871
+592	827	7866195875277998	D:/Unity/gitHub/Math-Carnival-Shooter/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/j1h5c6u3/obj/arm64-v8a/libswappywrapper.so	620d11baca3ea91a
